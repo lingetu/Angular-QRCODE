@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'QRCODE-Angular-Website' title`, () => {
+  it(`should have the 'angular-QRCODE-website' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('QRCODE-Angular-Website');
+    expect(app.title).toEqual('angular-QRCODE-website');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, QRCODE-Angular-Website');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-QRCODE-website');
   });
 });

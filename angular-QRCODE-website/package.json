@@ -1,5 +1,5 @@
 {
-  "name": "qrcode-angular-website",
+  "name": "angular-qrcode-website",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:QRCODE-Angular-Website": "node dist/qrcode-angular-website/server/server.mjs"
+    "serve:ssr:angular-QRCODE-website": "node dist/angular-qrcode-website/server/server.mjs"
   },
   "private": true,
   "dependencies": {
