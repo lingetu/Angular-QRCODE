@@ -1,16 +1,52 @@
+/*CORE MODULE */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+/*MODULE*/
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { QRCodeModule } from 'angularx-qrcode'
+
+/**ROUTING */
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+
+/*COMPONENT */
 import { AppComponent } from './app.component';
+import { QrCodeComponentComponent } from './qr-code-component/qr-code-component.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NullUrlComponent } from './null-url/null-url.component';
+import { HomeComponent } from './home/home.component';
+import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QrCodeComponentComponent,
+    NavbarComponent,
+    NullUrlComponent,
+    HomeComponent,
+    QrCodePageComponent,
   ],
+
+
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule,
+    QRCodeModule,
+
+
+  
+    
+      RouterModule.forChild([
+        { path: '', component: AppComponent},
+        { path: 'qrcode', component: QrCodePageComponent},
+        { path: 'home', component: HomeComponent},
+        { path: '**', component: NullUrlComponent}
+       
+
+      ])
+
   ],
   providers: [],
   bootstrap: [AppComponent]
