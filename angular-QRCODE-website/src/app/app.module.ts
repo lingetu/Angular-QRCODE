@@ -6,9 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeModule } from 'angularx-qrcode'
 
-/**ROUTING */
+/*ROUTING*/
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+
+/*BACKEND*/
+import { HttpClientModule } from '@angular/common/http';
 
 /*COMPONENT */
 import { AppComponent } from './app.component';
@@ -36,6 +39,7 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
     AppRoutingModule,
     FontAwesomeModule,
     QRCodeModule,
+    HttpClientModule,
 
 
   

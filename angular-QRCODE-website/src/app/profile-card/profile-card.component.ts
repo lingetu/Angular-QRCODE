@@ -28,5 +28,6 @@ export class ProfileCardComponent {
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
   }
+  
 
 }
