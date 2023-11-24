@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NullUrlComponent } from './null-url/null-url.component';
 import { HomeComponent } from './home/home.component';
 import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
     NullUrlComponent,
     HomeComponent,
     QrCodePageComponent,
+    ProfileCardComponent,
   ],
 
 
@@ -39,7 +41,7 @@ import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
   
     
       RouterModule.forChild([
-        { path: '', component: AppComponent},
+        { path: '', redirectTo:'home', pathMatch:'full'},
         { path: 'qrcode', component: QrCodePageComponent},
         { path: 'home', component: HomeComponent},
         { path: '**', component: NullUrlComponent}

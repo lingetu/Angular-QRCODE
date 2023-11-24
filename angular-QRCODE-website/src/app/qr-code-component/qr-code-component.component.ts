@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class QrCodeComponentComponent {
 QrCodeData = 'https://lucasbondon-website.web.app/';
+
+public getScreenWidth: any;
+public getScreenHeight: any;
+public getQrCodeWidth :any;
+
+  ngOnInit() {
+      this.getScreenWidth = window.innerWidth;
+      this.getScreenHeight = window.innerHeight;
+      this.getQrCodeWidth = this.getScreenWidth*0.5;
+  }
+
+
 }

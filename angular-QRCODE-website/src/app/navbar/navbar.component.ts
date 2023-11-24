@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
@@ -15,4 +15,5 @@ export class NavbarComponent {
   faQrcode = faQrcode;
   faEnvelope = faEnvelope;
   faProjectDiagram = faProjectDiagram;
+  faUser = faUser;
 }

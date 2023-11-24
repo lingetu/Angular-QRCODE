@@ -1,4 +1,9 @@
 
-    <qrcode  [qrdata]="QrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    
+    <div>
+        <qrcode  [qrdata]="QrCodeData" [width]="getQrCodeWidth" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <div>
     <p>QrCodeData: {{QrCodeData}}</p>
 
+    </div>
