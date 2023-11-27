@@ -21,6 +21,10 @@ import { NullUrlComponent } from './null-url/null-url.component';
 import { HomeComponent } from './home/home.component';
 import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { FormQrcodeComponent } from './form-qrcode/form-qrcode.component';
+/*FORM*/
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
     HomeComponent,
     QrCodePageComponent,
     ProfileCardComponent,
+    FormQrcodeComponent,
   ],
 
 
@@ -40,6 +45,9 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
     FontAwesomeModule,
     QRCodeModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    
+    
 
 
   
@@ -48,7 +56,9 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
         { path: '', redirectTo:'home', pathMatch:'full'},
         { path: 'qrcode', component: QrCodePageComponent},
         { path: 'home', component: HomeComponent},
-        { path: '**', component: NullUrlComponent}
+        { path: 'form', component: FormQrcodeComponent},
+        { path: '**', component: NullUrlComponent},
+       
        
 
       ])
