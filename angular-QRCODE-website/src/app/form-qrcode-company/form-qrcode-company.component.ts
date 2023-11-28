@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-qrcode',
-  templateUrl: './form-qrcode.component.html',
-  styleUrls: ['./form-qrcode.component.css']
+  selector: 'app-form-qrcode-company',
+  templateUrl: './form-qrcode-company.component.html',
+  styleUrls: ['./form-qrcode-company.component.css']
 })
-export class FormQrcodeComponent {
+export class FormQrcodeCompanyComponent {
 
   
   payLoad: any;

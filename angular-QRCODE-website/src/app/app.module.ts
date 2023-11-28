@@ -21,9 +21,12 @@ import { NullUrlComponent } from './null-url/null-url.component';
 import { HomeComponent } from './home/home.component';
 import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
-import { FormQrcodeComponent } from './form-qrcode/form-qrcode.component';
+import { FormQrcodeCompanyComponent } from './form-qrcode-company/form-qrcode-company.component';
 /*FORM*/
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormQrcodeEtudiantComponent } from './form-qrcode-etudiant/form-qrcode-etudiant.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     QrCodePageComponent,
     ProfileCardComponent,
-    FormQrcodeComponent,
+    FormQrcodeCompanyComponent,
+    FormQrcodeEtudiantComponent,
+    LoginPageComponent,
+    RegistrationPageComponent,
   ],
 
 
@@ -56,7 +62,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         { path: '', redirectTo:'home', pathMatch:'full'},
         { path: 'qrcode', component: QrCodePageComponent},
         { path: 'home', component: HomeComponent},
-        { path: 'form', component: FormQrcodeComponent},
+        { path: 'form', component: FormQrcodeCompanyComponent},
+        { path: 'login', component: LoginPageComponent},
+        { path: 'registration', component: RegistrationPageComponent},
         { path: '**', component: NullUrlComponent},
        
        
