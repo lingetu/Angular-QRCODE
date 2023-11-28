@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-page',
@@ -14,5 +15,14 @@ export class RegistrationPageComponent {
   leftpanelactive(elem: HTMLElement) {
     elem.className = 'container';
   }
+
+  DataForm: FormGroup = new FormGroup({});
+  payLoad: any;
+
+ PreviewData() 
+    {
+         this.payLoad = JSON.stringify(this.DataForm.value);
+    }
+
   
 }

@@ -60,11 +60,15 @@ import { RegistrationPageComponent } from './registration-page/registration-page
     
       RouterModule.forChild([
         { path: '', redirectTo:'home', pathMatch:'full'},
-        { path: 'qrcode', component: QrCodePageComponent},
+        /*Home page quand on est déjà login affiche le profile avec nos informations*/
         { path: 'home', component: HomeComponent},
-        { path: 'form', component: FormQrcodeCompanyComponent},
-        { path: 'login', component: LoginPageComponent},
-        { path: 'registration', component: RegistrationPageComponent},
+        /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école*/
+        { path: 'formCompany', component: FormQrcodeCompanyComponent},
+        /**Form login si admin redirige vers page admin, si étudiant/invité redirige vers scanneur de qrcode/home(profile) */
+        { path: 'formLogin', component: LoginPageComponent},
+        /**S'enregistrer avec son mail ou numéro étudiant */
+        { path: 'formRegistration', component: RegistrationPageComponent},
+        { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
         { path: '**', component: NullUrlComponent},
        
        

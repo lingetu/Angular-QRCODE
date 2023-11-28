@@ -1,1 +1,29 @@
-<p>form-qrcode-etudiant works!</p>
+<section style="background-color: #c7c7c7; height: 100%;">
+    <form [formGroup]="DataForm">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-9">
+            <h1 class="text-black mb-4">Création identité numérique Etudiant</h1>
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body">
+                <div class="form-group row" *ngFor="let data of formQRCODE;" >
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div class="col-md-3 ps-5">
+                      <h6 class="mb-0">{{data.name}}</h6>
+                    </div>
+                    <div class="col-md-9 pe-5">
+                      <input type="{{data.type}}" class="form-control form-control-lg" placeholder="{{data.placeholder}}" />
+                    </div>
+                  </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="px-5 py-4">
+                <button type="submit" class="btn btn-primary btn-lg">Générer QRCODE d'identité</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>

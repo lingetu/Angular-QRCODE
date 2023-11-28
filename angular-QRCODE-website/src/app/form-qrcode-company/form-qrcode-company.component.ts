@@ -9,24 +9,15 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class FormQrcodeCompanyComponent {
 
   
-  payLoad: any;
+ 
   formQRCODE: any;
   DataForm: FormGroup = new FormGroup({});
+  payLoad: any;
 
   constructor()
   {
     this.formQRCODE = 
     [
-    {
-      name:'Nom Prénom',
-      placeholder:'john doe',
-      type:'text'
-    },
-    {
-      name:'Adresse email',
-      placeholder:'example@gmail.com',
-      type:'email'
-    },
     {
       name:'Numéro de téléphone',
       placeholder:'+33 6 00 00 00 00',

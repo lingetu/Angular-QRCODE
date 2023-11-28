@@ -1,45 +1,44 @@
-<h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
+<section class="sectioncontainer">
 <div class="container" id="container" #container>
 	<div class="form-container sign-up-container">
-		<form>
-			<h1>Create Account</h1>
-			<span>or use your email for registration</span>
+		<form [formGroup]="DataForm">
+			<h1>Création compte Invité</h1>
 			<input type="text" placeholder="Name" />
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Password" />
-			<button>Sign Up</button>
+            <input type="password" placeholder="Confirm Password"/>
+			<button>Créer un compte invité</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form>
-			<h1>Sign in</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+		<form [formGroup]="DataForm">
+			<h1>Création compte Etudiant</h1>
+			<input type="email" placeholder="Numéro etudiant" />
+			<input type="password" placeholder="Password"/>
+            <input type="password" placeholder="Confirm Password"/>
+			<button>Créer un compte Etudiant </button>
 		</form>
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn" (click)="leftpanelactive(container)">Sign In</button>
+				<h1>Vous êtes étudiant ?</h1>
+				<p>Créer un compte étudiant !</p>
+				<button class="ghost" id="signIn" (click)="leftpanelactive(container)">Création compte étudiant</button>
+                <p>Vous possédez déjà un compte ?</p>
+                <a routerLink="/formLogin"><button class="ghost" id="signUp" >Se connecter</button></a>
 			</div>
 			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp" (click)="rightpanelactive(container)">Sign Up</button>
+				<h1>Vous êtes extérieur à l'école ?</h1>
+				<p>Créez un compte Invité !</p>
+				<button class="ghost" id="signUp" (click)="rightpanelactive(container)">Création compte invité</button>
+                <p>Vous possédez déjà un compte ?</p>
+                <a routerLink="/formLogin"><button class="ghost" id="signUp" >Se connecter</button></a>
 			</div>
 		</div>
 	</div>
 </div>
+</section>
 
 <script>
 const signUpButton = document.getElementById('signUp');

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
+  rightpanelactive(elem: HTMLElement) {
+    elem.className = 'container right-panel-active';
+   
+  }
+  leftpanelactive(elem: HTMLElement) {
+    elem.className = 'container';
+  }
 
+  DataForm: FormGroup = new FormGroup({});
+  payLoad: any;
+
+ PreviewData() 
+    {
+         this.payLoad = JSON.stringify(this.DataForm.value);
+    }
 }
