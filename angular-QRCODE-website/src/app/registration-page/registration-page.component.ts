@@ -22,6 +22,7 @@ export class RegistrationPageComponent {
  PreviewData() 
     {
          this.payLoad = JSON.stringify(this.DataForm.value);
+         console.log(this.payLoad);
     }
 
   

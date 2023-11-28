@@ -20,13 +20,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NullUrlComponent } from './null-url/null-url.component';
 import { HomeComponent } from './home/home.component';
 import { QrCodePageComponent } from './qr-code-page/qr-code-page.component';
-import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { ProfileCardGuestComponent } from './profile-card-guest/profile-card-guest.component';
 import { FormQrcodeCompanyComponent } from './form-qrcode-company/form-qrcode-company.component';
 /*FORM*/
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormQrcodeEtudiantComponent } from './form-qrcode-etudiant/form-qrcode-etudiant.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
+import { ProfileCardStudentComponent } from './profile-card-student/profile-card-student.component';
 
 
 @NgModule({
@@ -37,11 +38,12 @@ import { RegistrationPageComponent } from './registration-page/registration-page
     NullUrlComponent,
     HomeComponent,
     QrCodePageComponent,
-    ProfileCardComponent,
+    ProfileCardGuestComponent,
     FormQrcodeCompanyComponent,
     FormQrcodeEtudiantComponent,
     LoginPageComponent,
     RegistrationPageComponent,
+    ProfileCardStudentComponent,
   ],
 
 
@@ -62,7 +64,7 @@ import { RegistrationPageComponent } from './registration-page/registration-page
         { path: '', redirectTo:'home', pathMatch:'full'},
         /*Home page quand on est déjà login affiche le profile avec nos informations*/
         { path: 'home', component: HomeComponent},
-        /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école*/
+        { path: 'home2', component: ProfileCardStudentComponent},        /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école*/
         { path: 'formCompany', component: FormQrcodeCompanyComponent},
         /**Form login si admin redirige vers page admin, si étudiant/invité redirige vers scanneur de qrcode/home(profile) */
         { path: 'formLogin', component: LoginPageComponent},

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-profile-card',
-  templateUrl: './profile-card.component.html',
-  styleUrls: ['./profile-card.component.css']
+  selector: 'app-profile-card-guest',
+  templateUrl: './profile-card-guest.component.html',
+  styleUrls: ['./profile-card-guest.component.css']
 })
-export class ProfileCardComponent {
+export class ProfileCardGuestComponent {
 
   public getScreenWidth: any;
   public getScreenHeight: any;

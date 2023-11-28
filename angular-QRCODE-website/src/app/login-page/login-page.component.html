@@ -3,7 +3,7 @@
 
 <div class="container" id="container" #container>
 	<div class="form-container sign-up-container">
-		<form [formGroup]="DataForm">
+		<form [formGroup]="DataForm" (ngSubmit)="PreviewData()">
 			<h1>Invité</h1>
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Password" />
@@ -12,12 +12,12 @@
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form [formGroup]="DataForm">
+		<form [formGroup]="DataForm" (ngSubmit)="PreviewData()">
 			<h1>Etudiant</h1>
 			<input type="number" placeholder="21544612" />
 			<input type="password" placeholder="Password" />
 			<a href="#">Forgot your password?</a>
-			<button>Se connecter</button>
+			<button >Se connecter</button>
 		</form>
 	</div>
 	<div class="overlay-container">
