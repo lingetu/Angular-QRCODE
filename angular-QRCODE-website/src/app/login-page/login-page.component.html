@@ -12,10 +12,28 @@
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form [formGroup]="DataForm" (ngSubmit)="PreviewData()">
+		<form [formGroup]="DataForm" (ngSubmit)="submit()">
 			<h1>Etudiant</h1>
-			<input type="number" placeholder="21544612" />
-			<input type="password" placeholder="Password" />
+			<input type="number" placeholder="21544612" formControlName ="number" />
+
+			<div class="error-list" *ngIf="fc['number'].errors && isSubmitted">
+
+			     <div *ngIf ="fc['number'].errors['required']"> Ce champ ne doit pas etre vide. </div>
+             
+			     <div *ngIf ="fc['number'].errors['number']"> Identifiant trop court. </div>
+			</div>
+
+			<input type="password" placeholder="Password"  formControlName ="password" />
+
+			<div class="error-list" *ngIf="fc['number'].errors && isSubmitted">
+			
+				<div *ngIf ="fc['password'].errors['required']">Ce champ ne doit pas etre vide. </div>
+
+		   </div>
+
+
+
+
 			<a href="#">Forgot your password?</a>
 			<button >Se connecter</button>
 		</form>

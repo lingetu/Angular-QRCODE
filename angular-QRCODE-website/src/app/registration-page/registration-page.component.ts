@@ -26,4 +26,22 @@ export class RegistrationPageComponent {
     }
 
   
+
+
+// This is added by Falilou for testing !!!!
+get fc (){
+  return this.DataForm.controls;
 }
+
+submit(){
+  if(this.DataForm.invalid) return;
+
+
+  alert(`email:${this.fc['email'].value}   
+  ,
+  password :${this.fc['password'].value}`)      // to catch the email and the password submitted 
+}
+
+
+}
+
