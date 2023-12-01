@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../services/student.service';
+import { GuestService } from '../services/guest.service';
 
 @Component({
   selector: 'app-login-page',
@@ -21,7 +22,8 @@ export class LoginPageComponent {
 
   //modified by Falilou 
 
-  DataForm !: FormGroup;
+  DataFormStudentLogin !: FormGroup;
+  DataFormGuestLogin !: FormGroup;
   isSubmitted = false;
   returnUrl = '';
 
@@ -30,13 +32,18 @@ export class LoginPageComponent {
   constructor(private formBuilder: FormBuilder ,
 
      private studentService :StudentService ,
+     private guestService :GuestService ,
      private activatedRoute : ActivatedRoute,
      private router: Router) {}
 
 
   ngOnInit(): void{
-    this.DataForm = this.formBuilder.group({
+    this.DataFormStudentLogin = this.formBuilder.group({
       number:['', Validators.required],
+      password:['', Validators.required]
+    });
+    this.DataFormGuestLogin = this.formBuilder.group({
+      mail:['', Validators.required],
       password:['', Validators.required]
     });
 
@@ -45,25 +52,39 @@ export class LoginPageComponent {
 
 
 
- PreviewData() 
-    {
-         this.payLoad = JSON.stringify(this.DataForm.value);
-         console.log(this.payLoad);
-    }
 
 
-
-    // This is added by Falilou for testing !!!!
-get fc (){
-  return this.DataForm.controls;
+    
+get fcStudent (){
+  return this.DataFormStudentLogin.controls;
+}
+get fcGuest (){
+  return this.DataFormGuestLogin.controls;
 }
 
-submit(){
+submitGuestLogin(){
   this.isSubmitted = true;
+  if(this.DataFormGuestLogin.invalid) {return};
 
-  if(this.DataForm.invalid) {
+  /*alert(`number:${this.fc['number'].value}   
+  ,
+  password :${this.fc['password'].value}`) */     // to catch the email and the password submitted 
+   
+   // For the student login page
 
-    // test on the terminal
+  this.guestService.login({     
+    mail:this.fcGuest['mail'].value,
+    password: this.fcGuest['password'].value,
+  }).subscribe(()=>{
+
+    this.router.navigateByUrl(this.returnUrl);
+  });
+}
+submitStudentLogin(){
+  this.isSubmitted = true;
+  if(this.DataFormStudentLogin.invalid) {
+
+    
     console.log("your input is not valid !!!!")
 
     return};
@@ -75,15 +96,10 @@ submit(){
    // For the student login page
 
   this.studentService.login({     
-    number:this.fc['number'].value,
-    password: this.fc['password'].value,
+    number:this.fcStudent['number'].value,
+    password: this.fcStudent['password'].value,
   }).subscribe(()=>{
     this.router.navigateByUrl(this.returnUrl);
   });
 }
-
-
-
-
-
 }

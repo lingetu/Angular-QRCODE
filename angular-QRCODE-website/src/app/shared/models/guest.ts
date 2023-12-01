@@ -1,6 +1,6 @@
-export class Student{
+export class Guest{
     id!: string;
-    numberStudent!:number;
+    mail!:number;
     password!: string;
     email!: string;
     name!: string;

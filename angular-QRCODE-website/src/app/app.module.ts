@@ -57,11 +57,7 @@ import { ToastrModule } from 'ngx-toastr';
     QRCodeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({
-      timeOut : 3000,
-      positionClass :'toast-bottom-right',
-      newestOnTop:false
-    }),
+    
     
     
 
@@ -69,7 +65,7 @@ import { ToastrModule } from 'ngx-toastr';
   
     
       RouterModule.forChild([
-        { path: '', redirectTo:'home', pathMatch:'full'},
+        { path: '', redirectTo:'formLogin', pathMatch:'full'},
         /*Home page quand on est déjà login affiche le profile avec nos informations*/
         { path: 'home', component: HomeComponent},
         { path: 'home2', component: ProfileCardStudentComponent},        /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école*/
@@ -80,10 +76,13 @@ import { ToastrModule } from 'ngx-toastr';
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
         { path: '**', component: NullUrlComponent},
-       
-       
+            ]),
 
-      ])
+      ToastrModule.forRoot({
+        timeOut : 3000,
+        positionClass :'toast-bottom-right',
+        newestOnTop:false
+      }),
 
   ],
   providers: [],

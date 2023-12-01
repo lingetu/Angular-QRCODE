@@ -2,35 +2,35 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL } from '../shared/constants/urls';
-import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
-import { Student } from '../shared/models/student';
+import { GUEST_LOGIN_URL, GUEST_REGISTER_URL } from '../shared/constants/urls';
+import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
+import { Guest } from '../shared/models/guest';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
-  
-  private UserStudent = new BehaviorSubject<Student>(new Student());
+export class GuestService {
 
-  public studentObservable:Observable<Student>;
+  private UserGuest = new BehaviorSubject<Guest>(new Guest());
+
+  public guestObservable:Observable<Guest>;
 
 
   constructor(private http:HttpClient , private toastrService:ToastrService) { 
-   this.studentObservable = this.UserStudent.asObservable();
+   this.guestObservable = this.UserGuest.asObservable();
   }
 
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
-  login(studentLogin:IStudentLogin):Observable<Student>{
-    return this.http.post<Student>(STUDENT_LOGIN_URL ,studentLogin).pipe( 
+  login(guestLogin:IGuestLogin):Observable<Guest>{
+    return this.http.post<Guest>(GUEST_LOGIN_URL ,guestLogin).pipe( 
         
       tap({
-        next:(student)=>{
-          this.UserStudent.next(student);
+        next:(Guest)=>{
+          this.UserGuest.next(Guest);
           this.toastrService.success(
-            `Bienvenu ${student.name} !`);
+            `Bienvenu ${Guest.name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
 
@@ -45,8 +45,8 @@ export class StudentService {
     ); // to connect the backend with the front 
 
   }
-  register(studentLogin:IStudentLogin):Observable<Student>{
-    return this.http.post<Student>(STUDENT_REGISTER_URL ,studentLogin).pipe( 
+  register(guestLogin:IGuestLogin):Observable<Guest>{
+    return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe( 
         
       // tap({
       //   next:(student)=>{
@@ -67,4 +67,5 @@ export class StudentService {
     ); // to connect the backend with the front 
 
   }
+
 }
