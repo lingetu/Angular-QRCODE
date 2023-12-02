@@ -25,7 +25,7 @@ export class LoginPageComponent {
   DataFormStudentLogin !: FormGroup;
   DataFormGuestLogin !: FormGroup;
   isSubmitted = false;
-  returnUrl = '';
+  returnUrl = '/home';
 
   payLoad: any;
   
@@ -47,7 +47,7 @@ export class LoginPageComponent {
       password:['', Validators.required]
     });
 
-    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
+    this.returnUrl = this.returnUrl
   }
 
 
@@ -64,7 +64,8 @@ get fcGuest (){
 
 submitGuestLogin(){
   this.isSubmitted = true;
-  if(this.DataFormGuestLogin.invalid) {return};
+  if(this.DataFormGuestLogin.invalid) {
+    return};
 
   /*alert(`number:${this.fc['number'].value}   
   ,
@@ -72,12 +73,12 @@ submitGuestLogin(){
    
    // For the student login page
 
-  this.guestService.login({     
+  this.guestService.login({    
     mail:this.fcGuest['mail'].value,
     password: this.fcGuest['password'].value,
   }).subscribe(()=>{
 
-    this.router.navigateByUrl(this.returnUrl);
+    this.router.navigate([this.returnUrl])
   });
 }
 submitStudentLogin(){
@@ -99,7 +100,7 @@ submitStudentLogin(){
     number:this.fcStudent['number'].value,
     password: this.fcStudent['password'].value,
   }).subscribe(()=>{
-    this.router.navigateByUrl(this.returnUrl);
+    this.router.navigate([this.returnUrl])
   });
 }
 }

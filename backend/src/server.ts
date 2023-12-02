@@ -131,13 +131,14 @@ app.post("/api/guests/loginGuest", (req, res)=>{
 
  let user =
  {
-  username: req.body.mail,
+  mail: req.body.mail,
   password: req.body.password,
  };   // more simple than the first example  , called Destructuring Assignment 
- const find = ProfileCardDataGuest.find(data => data.username === user.username &&
+ const find = ProfileCardDataGuest.find(data => data.mail === user.mail &&
   data.password === user.password);
 
   if (find){
+    console.log("connexté")
       return res.send(generateTokenResponse(user));
   }else{
       console.log("Identifiant ou mot de passe pas valid!")
