@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StudentService } from "../services/student.service";
+import { Student } from "../shared/models/student";
 
 @Component({
   selector: 'app-profile-card-guest',
   templateUrl: './profile-card-guest.component.html',
   styleUrls: ['./profile-card-guest.component.css']
 })
-export class ProfileCardGuestComponent {
+export class ProfileCardGuestComponent implements OnInit {
 
   public getScreenWidth: any;
   public getScreenHeight: any;
   public getQrCodeWidth: any;
+  student!:Student;
+
+  constructor(studentService :StudentService){
+    studentService.studentObservable.subscribe((newStudent)=>{
+      this.student = newStudent;
+
+    })
+  }
 
   ProfileCardData = 
   [

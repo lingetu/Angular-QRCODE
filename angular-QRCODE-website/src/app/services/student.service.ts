@@ -6,12 +6,14 @@ import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL } from '../shared/constants/url
 import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
 import { Student } from '../shared/models/student';
 
+const STUDENT_KEY = 'Student'; // We can modify this key when it's needed 
+
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
   
-  private UserStudent = new BehaviorSubject<Student>(new Student());
+  private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
 
   public studentObservable:Observable<Student>;
 
@@ -28,6 +30,9 @@ export class StudentService {
         
       tap({
         next:(student)=>{
+
+        this.setStudentToLocalStorage(student)   // to save the session  
+
           this.UserStudent.next(student);
           this.toastrService.success(
             `Bienvenu ${student.name} !`);
@@ -35,7 +40,7 @@ export class StudentService {
         },
 
         error:(errorresponse)=>{
-          this.toastrService.error(errorresponse.error, 'Log Failed');  // message in failed case 
+          this.toastrService.error(errorresponse.error, 'Login Failed');  // message in failed case 
         }
         
 
@@ -45,6 +50,26 @@ export class StudentService {
     ); // to connect the backend with the front 
 
   }
+
+
+
+// 2 methodes to save the connexion once a student has logged:
+
+private setStudentToLocalStorage(student:Student){
+  localStorage.setItem(STUDENT_KEY, JSON.stringify(student));
+
+}
+
+private getStudentFromLocalStorage():Student{
+  const studentJson = localStorage.getItem(STUDENT_KEY);
+  if(studentJson) return JSON.parse(studentJson) as Student;
+  return new Student();
+}
+
+
+
+
+
   register(studentLogin:IStudentLogin):Observable<Student>{
     return this.http.post<Student>(STUDENT_REGISTER_URL ,studentLogin).pipe( 
         
@@ -67,4 +92,6 @@ export class StudentService {
     ); // to connect the backend with the front 
 
   }
+
+  
 }

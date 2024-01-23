@@ -1,6 +1,6 @@
 export class Guest{
     id!: string;
-    mail!:number;
+   company!:string;
     password!: string;
     email!: string;
     name!: string;
