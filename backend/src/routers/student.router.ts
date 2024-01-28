@@ -1,9 +1,11 @@
 
+import bcrypt from 'bcryptjs';
 import { Router } from "express";
 import asynchandller from 'express-async-handler';
 import jwt from "jsonwebtoken";
+import { HTTP_BAD_REQUEST } from "../constants/http.status";
 import { ProfileCardDataStudent } from "../data";
-import { StudentModel } from '../models/student.model';
+import { Student, StudentModel } from '../models/student.model';
 
 const router = Router();
 
@@ -31,6 +33,7 @@ router.get("/", asynchandller(
     async(req ,res)=>{
 
         const students = await StudentModel.find();
+       // console.log(students);
 
          res.send(students);     // to accede to the student's data.
 }))
@@ -60,49 +63,88 @@ router.get("/company/:entry", (req,res)=>{         // to accede to the students 
 
   
   /**--------------------------STUDENT -----------------------------*/
-  router.post("/loginStudent", (req, res)=>{
-  
-        // to test the login methode
-      console.log(req.body);
-  
-     let user =
-     {
-      username: req.body.numberStudent,
-      password: req.body.password,
-     };   // more simple than the first example  , called Destructuring Assignment 
-     const find = ProfileCardDataStudent.find(data => data.username === user.username &&
-      data.password === user.password);
-  
-      if (find){
-          return res.send(generateTokenResponse(user));
-      }else{
-          console.log("Identifiant ou mot de passe pas valid!")
-          return res.status(300).send("Identifiant ou mot de passe pas valid!")
-      }
+
+
   
   
-  })
-  router.post("/registerStudent", (req, res)=>{
+  router.post("/loginStudent", asynchandller(
+     async (req, res)=>{
+        console.log(req.body);
+
+        const {numberStudent,password}= req.body;
+        
+
+        const student = await StudentModel.findOne({ password});
+        console.log(student);
+        
+        if(student){
+            res.send(generateTokenResponse(student));
+        }
+        else{
+        
+            res.status(HTTP_BAD_REQUEST).send("numero etudiant ou mot de password invalide!!")
+        }
   
-      // to test the login methode
-      console.log(req.body);
-   let user =
-   {
-    username: req.body.numberStudent,
-    password: req.body.password,
-   };   // more simple than the first example  , called Destructuring Assignment 
-   const find = ProfileCardDataStudent.find(data => data.username === user.username &&
-    data.password === user.password);
+       
+  }
+  ))
   
-    if (find){
-        return res.status(400).send("Identifiant ou mot de passe pas valid!")
-    }else{
-      ProfileCardDataStudent.push(user);
-        return res.send("compte créer avec succés")
-    }
+
+/*
+router.post("/loginStudent", (req, res)=>{
+
+    // to test the login methode
+  console.log(req.body);
+
+ let user =
+ {
+  mail: req.body.mail,
+  password: req.body.password,
+ };   // more simple than the first example  , called Destructuring Assignment 
+ const find = ProfileCardDataStudent.find(data => data.mail === user.mail &&
+  data.password === user.password);
+  console.log(find);
+
+  if (find){
+    console.log("connexté")
+      return res.send(generateTokenResponse(user));
+  }else{
+      console.log("Identifiant ou mot de passe pas valid!")
+      return res.status(300).send("Identifiant ou mot de passe pas valid!")
+  }
+
+
+})
+*/
+
+//Registration methode 
+  router.post("/registerStudent", asynchandller(
+    async(req, res)=>{
+        const { name, numberStudent,password} = req.body;
+        const student =  await StudentModel.findOne({numberStudent});
+        if(student){
+            res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
+            return;
+        }
+        const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+
+        const newStudent:Student={
+            id:'',
+            name,
+            password : encryptedPassword,
+            numberStudent,
+            typeProfile :'Student',
+        }
+        
+        const dbStudent = await StudentModel.create(newStudent);
+        res.send(generateTokenResponse(dbStudent));
+
+
+  
+     
   
   
-  })
+  }))
 
   const generateTokenResponse = (user :any )=>{
 

@@ -45,6 +45,7 @@ router.get("/", (req ,res)=>{
 /**--------------------------GUEST -----------------------------*/
 
 
+//Registration methode 
 router.post("/registerGuest", (req, res)=>{
 
     // to test the login methode
@@ -66,6 +67,32 @@ router.post("/registerGuest", (req, res)=>{
 
 
 })
+
+
+//Login methode 
+router.post("/loginGuest", asynchandller(
+    async (req, res)=>{
+       console.log(req.body);
+
+       const {email,password}= req.body;
+       
+
+       const guest = await GuestModel.findOne({password});
+       console.log(guest);
+       
+       if(guest){
+           res.send(generateTokenResponse(guest));
+       }
+       else{
+           const BAD_REQUEST = 400;
+           res.status(BAD_REQUEST).send("email ou mot de password invalide!!")
+       }
+ 
+      
+ }
+ ))
+
+ /*
 router.post("/loginGuest", (req, res)=>{
 
     // to test the login methode
@@ -88,7 +115,7 @@ router.post("/loginGuest", (req, res)=>{
   }
 
 
-})
+})*/
 
 
 // Here we define a fonction for the users authentification like  in a real database

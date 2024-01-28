@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GuestService } from '../services/guest.service';
 import { StudentService } from "../services/student.service";
+import { Guest } from '../shared/models/guest';
 import { Student } from "../shared/models/student";
 
 @Component({
@@ -13,12 +15,19 @@ export class ProfileCardGuestComponent implements OnInit {
   public getScreenHeight: any;
   public getQrCodeWidth: any;
   student!:Student;
+  guest!: Guest;
 
-  constructor(studentService :StudentService){
+  constructor(studentService :StudentService, guestService : GuestService){
+    
     studentService.studentObservable.subscribe((newStudent)=>{
       this.student = newStudent;
 
     })
+    guestService.guestObservable.subscribe((newGuest)=>{
+      this.guest = newGuest;
+
+    })
+
   }
 
   ProfileCardData = 

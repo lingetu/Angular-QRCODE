@@ -4,5 +4,5 @@ export class Student{
     password!: string;
     email!: string;
     name!: string;
-    adresse!:string;
+   // adresse!:string;
 }

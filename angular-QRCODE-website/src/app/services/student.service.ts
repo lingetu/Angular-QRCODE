@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL } from '../shared/constants/urls';
 import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
+import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { Student } from '../shared/models/student';
 
 const STUDENT_KEY = 'Student'; // We can modify this key when it's needed 
@@ -69,29 +70,32 @@ private getStudentFromLocalStorage():Student{
 
 
 
+register(studentRegister:IStudentRegister): Observable<Student>{
+   console.log("fonction register");
+  return this.http.post<Student>(STUDENT_REGISTER_URL,studentRegister).pipe(
+    tap({
+      next: (student ) =>{
+        this.setStudentToLocalStorage(student);
+        this.UserStudent.next(student);
+        this.toastrService.success(
+          `Bienvenu(e) ${student.name}`,
+          'Inscription reussi !!'
+        )
+      },
+      error: (errorResponse)=>{
+        this.toastrService.error(errorResponse.error , 
+          'Inscription échouée !! ')
+      }
+    })
+  )
+}
 
-  register(studentLogin:IStudentLogin):Observable<Student>{
-    return this.http.post<Student>(STUDENT_REGISTER_URL ,studentLogin).pipe( 
-        
-      // tap({
-      //   next:(student)=>{
-      //     this.UserStudent.next(student);
-      //     this.toastrService.success(
-      //       `Bienvenu ${student.name} !`);
-      //       'Connexion Reussi'                   // message to send in case of succes 
-      //   },
 
-      //   error:(errorresponse)=>{
-      //     this.toastrService.error(errorresponse.error, 'Log Failed');  // message in failed case 
-      //   }
-        
 
-      // })
-         
 
-    ); // to connect the backend with the front 
 
-  }
 
-  
+
+
+
 }

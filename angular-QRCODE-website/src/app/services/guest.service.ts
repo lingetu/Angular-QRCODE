@@ -46,7 +46,7 @@ export class GuestService {
     ); // to connect the backend with the front 
 
   }
-  register(guestLogin:IGuestLogin):Observable<Guest>{
+  registerGuest(guestLogin:IGuestLogin):Observable<Guest>{
     return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe( 
         
       // tap({

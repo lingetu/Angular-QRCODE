@@ -5,7 +5,9 @@ export interface Student{
     name: string;
     numberStudent:number;
     password: string;
-    adresse:string;
+    typeProfile: string;
+    
+    
 
 }
 
@@ -15,8 +17,9 @@ export const StudentSchema = new Schema<Student>({
     name:{ type:String, required: true},
     numberStudent:{ type:Number, required: true},
     password:{ type:String, required: true},
-    adresse:{ type:String, required: true},
-
+    typeProfile:{type :String ,required:true},
+    
+    
 },{
     timestamps : true,
 
