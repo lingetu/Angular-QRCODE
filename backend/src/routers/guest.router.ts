@@ -72,16 +72,18 @@ router.post("/registerGuest", (req, res)=>{
 //Login methode 
 router.post("/loginGuest", asynchandller(
     async (req, res)=>{
-       console.log(req.body);
+        let user =
+        {
+        email:req.body.mail,
+        password:req.body.password,
+        }
 
-       const {email,password}= req.body;
+        const guest = await GuestModel.find(user);
        
 
-       const guest = await GuestModel.findOne({password});
-       console.log(guest);
-       
-       if(guest){
-           res.send(generateTokenResponse(guest));
+       if(guest[0]){
+        
+           res.send(generateTokenResponse(guest[0]));
        }
        else{
            const BAD_REQUEST = 400;
