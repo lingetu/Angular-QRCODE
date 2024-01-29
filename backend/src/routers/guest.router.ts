@@ -92,6 +92,12 @@ router.post("/loginGuest", asynchandller(
  }
  ))
 
+ router.post("/creationEvent", (req, res)=>{
+    console.log(req.body);
+})
+
+
+
  /*
 router.post("/loginGuest", (req, res)=>{
 

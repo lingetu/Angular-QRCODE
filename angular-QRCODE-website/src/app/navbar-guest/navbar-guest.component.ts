@@ -1,19 +1,20 @@
 import { Component, OnInit } from "@angular/core";
-import { faEnvelope, faHome, faProjectDiagram, faQrcode, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faHome, faProjectDiagram, faQrcode, faUser, faCalendar} from  "@fortawesome/free-solid-svg-icons";
 import { StudentService } from "../services/student.service";
 import { Student } from "../shared/models/student";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-navbar-guest',
+  templateUrl: './navbar-guest.component.html',
+  styleUrls: ['./navbar-guest.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarGuestComponent implements OnInit {
 
   faHome = faHome;
   faQrcode = faQrcode;
   faEnvelope = faEnvelope;
   faProjectDiagram = faProjectDiagram;
+  faCalendarWeek = faCalendar;
   faUser = faUser;
   student!:Student;
 
@@ -24,6 +25,6 @@ export class NavbarComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-      
+
   }
 }

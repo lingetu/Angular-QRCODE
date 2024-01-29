@@ -16,8 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 /*COMPONENT */
 import { AppComponent } from './app.component';
 import { FormQrcodeCompanyComponent } from './form-qrcode-company/form-qrcode-company.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { NullUrlComponent } from './null-url/null-url.component';
 import { ProfileCardGuestComponent } from './profile-card-guest/profile-card-guest.component';
 import { QrCodeComponentComponent } from './qr-code-component/qr-code-component.component';
@@ -31,14 +29,15 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 // the following is added by Falilou :
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
+import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
+import { CreationEvenementComponent } from './creation-evenement/creation-evenement.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QrCodeComponentComponent,
-    NavbarComponent,
     NullUrlComponent,
-    HomeComponent,
     QrCodePageComponent,
     ProfileCardGuestComponent,
     FormQrcodeCompanyComponent,
@@ -46,7 +45,10 @@ import { ToastrModule } from 'ngx-toastr';
     LoginPageComponent,
     RegistrationPageComponent,
     ProfileCardStudentComponent,
-  ],
+    NavbarStudentComponent,
+    NavbarGuestComponent,
+      CreationEvenementComponent
+   ],
 
 
   imports: [
@@ -57,18 +59,19 @@ import { ToastrModule } from 'ngx-toastr';
     QRCodeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    
-    
-    
 
 
-  
-    
+
+
+
+
+
       RouterModule.forChild([
         { path: '', redirectTo:'formLogin', pathMatch:'full'},
+        { path: 'creationEvenement', component: CreationEvenementComponent},
         /*Home page quand on est déjà login affiche le profile avec nos informations*/
         { path: 'homeGuest' , component: ProfileCardGuestComponent},
-        { path: 'homeStudent', component: ProfileCardStudentComponent},        
+        { path: 'homeStudent', component: ProfileCardStudentComponent},
         /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école*/
         { path: 'formCompany', component: FormQrcodeCompanyComponent},
         /**Form login si admin redirige vers page admin, si étudiant/invité redirige vers scanneur de qrcode/home(profile) */

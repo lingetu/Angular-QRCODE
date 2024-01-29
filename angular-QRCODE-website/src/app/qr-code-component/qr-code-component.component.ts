@@ -15,7 +15,7 @@ public getQrCodeWidth :any;
   ngOnInit() {
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
-      this.getQrCodeWidth = this.getScreenWidth*0.5;
+      this.getQrCodeWidth = this.getScreenWidth*0.3;
   }
 
 

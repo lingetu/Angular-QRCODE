@@ -1,3 +1,4 @@
+import { IEventCreation } from "../interfaces/IEventCreation";
 export class Guest{
     id!: string;
    company!:string;
@@ -5,4 +6,6 @@ export class Guest{
     email!: string;
     name!: string;
     adresse!:string;
+    event !: IEventCreation[];
+
 }
