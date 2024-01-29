@@ -16,6 +16,8 @@ export class StudentService {
   
   private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
 
+  //private UserStudent = new BehaviorSubject<Student>(new Student());
+
   public studentObservable:Observable<Student>;
 
 
@@ -31,13 +33,13 @@ export class StudentService {
         
       tap({
         next:(student)=>{
-        let newStudent=student[0];
+        //let newStudent=student[0];
 
-        this.setStudentToLocalStorage(newStudent)   // to save the session  
+        this.setStudentToLocalStorage(student[0])   // to save the session  
 
-          this.UserStudent.next(newStudent);
+          this.UserStudent.next(student[0]);
           this.toastrService.success(
-            `Bienvenu ${newStudent.name} !`);
+            `Bienvenu ${student[0].name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
 

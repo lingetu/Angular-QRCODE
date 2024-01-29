@@ -2,8 +2,9 @@
 import { Router } from "express";
 import asynchandller from 'express-async-handler';
 import jwt from "jsonwebtoken";
+import { HTTP_BAD_REQUEST } from "../constants/http.status";
 import { ProfileCardDataGuest } from "../data";
-import { GuestModel } from '../models/guest.model';
+import { Guest, GuestModel } from '../models/guest.model';
 
 const router = Router();
 
@@ -34,63 +35,86 @@ router.get("/seed", asynchandller(
 
 
 /**------------------------Test-------------------------------- */
-router.get("/", (req ,res)=>{
-
-    res.send(ProfileCardDataGuest);     // to accede to the student's data.
 
 
-})
+    router.get("/", asynchandller(
+        async(req ,res)=>{
+    
+            const guests = await GuestModel.find();
+           // console.log(students);
+    
+             res.send(guests);     // to accede to the student's data.
+    }))
+
 
 
 /**--------------------------GUEST -----------------------------*/
 
 
 //Registration methode 
-router.post("/registerGuest", (req, res)=>{
-
-    // to test the login methode
-    console.log(req.body);
- let user =
- {
-  username: req.body.mail,
-  password: req.body.password,
- };   // more simple than the first example  , called Destructuring Assignment 
- const find = ProfileCardDataGuest.find(data => data.username === user.username &&
-  data.password === user.password);
-
-  if (find){
-      return res.status(400).send("Identifiant ou mot de passe pas valid!")
-  }else{
-    ProfileCardDataGuest.push(user);
-      return res.send("compte créer avec succés")
-  }
+router.post("/registerGuest", asynchandller(
+    async(req, res)=>{
+        const { name,email,company,adresse,password} = req.body;
+        console.log(req.body);
 
 
-})
+        const guest =  await GuestModel.findOne({email});
+        if(guest){
+            res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
+            return;
+        }
+        //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+
+        const newGuest:Guest={
+            id:'',
+            name,
+            email,
+            adresse,
+            company,
+            password : password,
+            typeProfile :'Guest',
+        }
+        
+        const dbGuest = await GuestModel.create(newGuest);
+        res.send(generateTokenResponse(dbGuest));
+
+
+  
+     
+  
+  
+  }))
 
 
 //Login methode 
 router.post("/loginGuest", asynchandller(
     async (req, res)=>{
-       console.log(req.body);
+       
+       let user =
+       {
+       email:req.body.email,
+       password:req.body.password,
+       }
 
-       const {email,password}= req.body;
+       
+       
        
 
-       const guest = await GuestModel.findOne({password});
+       const guest = await GuestModel.find(user);
        console.log(guest);
        
        if(guest){
            res.send(generateTokenResponse(guest));
        }
        else{
-           const BAD_REQUEST = 400;
-           res.status(BAD_REQUEST).send("email ou mot de password invalide!!")
+       
+           res.status(HTTP_BAD_REQUEST).send("numero etudiant ou mot de password invalide!!")
        }
  
       
  }
  ))
+ 
 
  /*
 router.post("/loginGuest", (req, res)=>{
@@ -116,6 +140,9 @@ router.post("/loginGuest", (req, res)=>{
 
 
 })*/
+
+
+
 
 
 // Here we define a fonction for the users authentification like  in a real database

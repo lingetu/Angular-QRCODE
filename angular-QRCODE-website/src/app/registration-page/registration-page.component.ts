@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuestService } from '../services/guest.service';
 import { StudentService } from '../services/student.service';
+import { IGuestRegister } from '../shared/interfaces/IGuestRegister';
 import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { PasswordsMatchValidator } from '../shared/validators/passwords_match_validator';
 
@@ -57,7 +58,9 @@ export class RegistrationPageComponent  {
 
         this.DataGuestRegisterForm = this.formBuilder.group({
 
-          name :['',[ Validators.required , Validators.minLength(3)]],
+          name :['',[ Validators.required , Validators.minLength(2)]],
+          company :['',[Validators.required ,Validators.minLength(1)]],
+          adresse:['',[Validators.required, Validators.minLength(4)]],
           email:['', [Validators.required ,Validators.email]],
           password:['', [Validators.required]],
           confirmPassword:['',[Validators.required]]
@@ -73,12 +76,19 @@ export class RegistrationPageComponent  {
  
 
 
-// This is added by Falilou for testing !!!!
+
+
+/************************************* STUDENT REGISTRATION ****************************** */
+
+
 get fcStudent (){
   return this.DataStudentRegisterForm.controls;
 }
 
-submitStudent(){
+
+
+
+submitRegistrationStudent(){
 
  
   this.isSubmitted = true;
@@ -122,6 +132,63 @@ submitStudent(){
 
 }
 
+
+/******************************* GUEST REGISTRATION ************************************ */
+
+
+
+
+get fcGuest (){
+  return this.DataGuestRegisterForm.controls;
+}
+
+//Guest registration methode 
+
+submitRegistrationGuest(){
+
+ 
+  this.isSubmitted = true;
+  //console.log(this.DataStudentRegisterForm.value['password']);
+  //console.log(this.DataStudentRegisterForm.value['confirmPassword']);
+  if(this.DataGuestRegisterForm.invalid) {
+    console.log("ok");
+    // Log des erreurs spécifiques
+    if (this.fcGuest['name'].errors) {
+      console.log('Erreur dans le champ "name" :', this.fcGuest['name'].errors);
+   }
+   if (this.fcGuest['email'].errors) {
+      console.log('Erreur dans le champ "email" :', this.fcGuest['email'].errors);
+   }
+   if (this.fcGuest['password'].errors) {
+    console.log('Erreur dans le champ "password" :', this.fcGuest['password'].errors);
+ }
+ if (this.fcGuest['confirmPassword'].errors) {
+  console.log('Erreur dans le champ "confirmPassword" :', this.fcGuest['confirmPassword'].errors);
+}
+   
+
+   return;
+  } 
+  
+  const fv = this.DataGuestRegisterForm.value;
+ 
+  const guest : IGuestRegister ={
+    name : fv.name,
+    company : fv.company,
+    adresse: fv.adresse,
+    email : fv.email,
+    password : fv.password,
+    confirmPassword : fv.confirmPassword
+  };
+  
+
+  this.guestService.register(guest).subscribe(_ =>{
+    this.router.navigateByUrl(this.returnUrl);
+  });
+  
+
+
+}
 
 }
 

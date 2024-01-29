@@ -17,7 +17,7 @@ export const GuestSchema = new Schema<Guest>({
 
     name:{ type:String, required: true},
     
-    password:{ type:String, required: true,unique:true},
+    password:{ type:String, required: true},
     email:{ type:String, required: true},
     typeProfile:{type:String },
     company:{type:String,required: true},
