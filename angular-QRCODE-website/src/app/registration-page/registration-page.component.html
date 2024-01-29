@@ -35,6 +35,12 @@
 				<div *ngIf ="fcStudent['password'].errors['required']">Ce champ ne doit pas etre vide. </div>
 
 		   </div>
+		   <input type="password" placeholder="Confirmer Mot de passe" formControlName ="confirmPassword"/>
+			<div class="error-list" *ngIf="fcStudent['confirmPassword'].errors && isSubmitted">
+			
+				<div *ngIf ="fcStudent['confirmPassword'].errors['required']">Ce champ ne doit pas etre vide. </div>
+
+		   </div>
 
            
 			<button>Créer un compte Etudiant </button>

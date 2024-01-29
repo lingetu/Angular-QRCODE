@@ -34,7 +34,7 @@ export class RegistrationPageComponent  {
     DataStudentRegisterForm !: FormGroup;
     DataGuestRegisterForm !: FormGroup;
     isSubmitted = false;
-    returnUrl = '/home';   // returnUrl = '/home';
+    returnUrl = '';   // returnUrl = '/home';
 
     constructor(private formBuilder: FormBuilder ,
 
@@ -48,7 +48,7 @@ export class RegistrationPageComponent  {
           numberStudent:['', [Validators.required , Validators.minLength(8)]],
           name:['', [Validators.required,Validators.minLength(3)]],
           password:['', Validators.required],
-         // confirmPassword:['',Validators.required]
+          confirmPassword:['',Validators.required]
         },
         {
           
@@ -60,10 +60,10 @@ export class RegistrationPageComponent  {
           name :['',[ Validators.required , Validators.minLength(3)]],
           email:['', [Validators.required ,Validators.email]],
           password:['', [Validators.required]],
-          //confirmPassword:['',[Validators.required]]
+          confirmPassword:['',[Validators.required]]
         },{
         
-         // validators: PasswordsMatchValidator('password', 'confirmPassword'),
+          validators: PasswordsMatchValidator('password', 'confirmPassword'),
         
 
         });
@@ -83,7 +83,7 @@ submitStudent(){
  
   this.isSubmitted = true;
   console.log(this.DataStudentRegisterForm.value['password']);
-  //console.log(this.DataStudentRegisterForm.value['confirmPassword']);
+  console.log(this.DataStudentRegisterForm.value['confirmPassword']);
   if(this.DataStudentRegisterForm.invalid) {
     console.log("ok");
     // Log des erreurs spécifiques
@@ -96,9 +96,9 @@ submitStudent(){
    if (this.fcStudent['password'].errors) {
     console.log('Erreur dans le champ "password" :', this.fcStudent['password'].errors);
  }
- /*if (this.fcStudent['confirmPassword'].errors) {
+ if (this.fcStudent['confirmPassword'].errors) {
   console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
-}*/
+}
    
 
    return;
@@ -110,7 +110,7 @@ submitStudent(){
     name : fv.name,
     numberStudent : fv.numberStudent,
     password : fv.password,
-    //confirmPassword : fv.confirmPassword
+    confirmPassword : fv.confirmPassword
   };
   
 

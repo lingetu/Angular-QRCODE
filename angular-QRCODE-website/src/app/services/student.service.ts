@@ -31,7 +31,7 @@ export class StudentService {
         
       tap({
         next:(student)=>{
-          let newStudent=student[0];
+        let newStudent=student[0];
 
         this.setStudentToLocalStorage(newStudent)   // to save the session  
 
