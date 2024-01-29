@@ -34,7 +34,7 @@ export class RegistrationPageComponent  {
     DataStudentRegisterForm !: FormGroup;
     DataGuestRegisterForm !: FormGroup;
     isSubmitted = false;
-    returnUrl = '';   // returnUrl = '/home';
+    returnUrl = '/home';   // returnUrl = '/home';
 
     constructor(private formBuilder: FormBuilder ,
 
@@ -45,12 +45,13 @@ export class RegistrationPageComponent  {
 
       ngOnInit(): void{
         this.DataStudentRegisterForm = this.formBuilder.group({
-          studentNumber:['', [Validators.required , Validators.minLength(8)]],
+          numberStudent:['', [Validators.required , Validators.minLength(8)]],
           name:['', [Validators.required,Validators.minLength(3)]],
           password:['', Validators.required],
-          confirmPassword:['',Validators.required]
+         // confirmPassword:['',Validators.required]
         },
         {
+          
           validators: PasswordsMatchValidator('password', 'confirmPassword')
         });
 
@@ -58,12 +59,12 @@ export class RegistrationPageComponent  {
 
           name :['',[ Validators.required , Validators.minLength(3)]],
           email:['', [Validators.required ,Validators.email]],
-          password:['', Validators.required],
-          confirmPassword:['',Validators.required]
+          password:['', [Validators.required]],
+          //confirmPassword:['',[Validators.required]]
         },{
-
-          validators: PasswordsMatchValidator('password', 'confirmPassword')
-        ,
+        
+         // validators: PasswordsMatchValidator('password', 'confirmPassword'),
+        
 
         });
     
@@ -81,18 +82,37 @@ submitStudent(){
 
  
   this.isSubmitted = true;
+  console.log(this.DataStudentRegisterForm.value['password']);
+  //console.log(this.DataStudentRegisterForm.value['confirmPassword']);
+  if(this.DataStudentRegisterForm.invalid) {
+    console.log("ok");
+    // Log des erreurs spécifiques
+    if (this.fcStudent['name'].errors) {
+      console.log('Erreur dans le champ "name" :', this.fcStudent['name'].errors);
+   }
+   if (this.fcStudent['numberStudent'].errors) {
+      console.log('Erreur dans le champ "studentNumber" :', this.fcStudent['numberStudent'].errors);
+   }
+   if (this.fcStudent['password'].errors) {
+    console.log('Erreur dans le champ "password" :', this.fcStudent['password'].errors);
+ }
+ /*if (this.fcStudent['confirmPassword'].errors) {
+  console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
+}*/
+   
 
-  //if(this.DataStudentRegisterForm.invalid) return;
+   return;
+  } 
   
   const fv = this.DataStudentRegisterForm.value;
-  console.log("ok");
+ 
   const student : IStudentRegister ={
     name : fv.name,
-    studentNumber : fv.studentNumber,
+    numberStudent : fv.numberStudent,
     password : fv.password,
-    confirmPassword : fv.confirmPassword
+    //confirmPassword : fv.confirmPassword
   };
-  console.log(student);
+  
 
   this.studentService.register(student).subscribe(_ =>{
     this.router.navigateByUrl(this.returnUrl);

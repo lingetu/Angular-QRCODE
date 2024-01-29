@@ -30,7 +30,8 @@ export class LoginPageComponent {
   DataFormStudentLogin !: FormGroup;
   DataFormGuestLogin !: FormGroup;
   isSubmitted = false;
-  returnUrl = '/home';
+  returnUrlStudent = '/homeStudent';
+  returnUrlGuest = '/homeGuest';
 
   payLoad: any;
   
@@ -52,7 +53,8 @@ export class LoginPageComponent {
       password:['', Validators.required]
     });
 
-    this.returnUrl = this.returnUrl
+    this.returnUrlStudent = this.returnUrlStudent
+    this.returnUrlGuest = this.returnUrlGuest
   }
 
 
@@ -83,7 +85,7 @@ submitGuestLogin(){
     password: this.fcGuest['password'].value,
   }).subscribe(()=>{
 
-    this.router.navigate([this.returnUrl])
+    this.router.navigate([this.returnUrlGuest])
   });
 }
 submitStudentLogin(){
@@ -105,7 +107,7 @@ submitStudentLogin(){
     number:this.fcStudent['number'].value,
     password: this.fcStudent['password'].value,
   }).subscribe(()=>{
-    this.router.navigate([this.returnUrl])
+    this.router.navigate([this.returnUrlStudent])
   });
 }
 }

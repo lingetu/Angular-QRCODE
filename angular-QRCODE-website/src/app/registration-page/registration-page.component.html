@@ -13,13 +13,13 @@
 	<div class="form-container sign-in-container">
 		<form [formGroup]="DataStudentRegisterForm" (ngSubmit)="submitStudent()">
 			<h1>Création compte Etudiant</h1>
-			<input type="number" placeholder="Numéro etudiant" formControlName ="studentNumber"/>
+			<input type="number" placeholder="Numéro etudiant" formControlName ="numberStudent"/>
 			
-			<div class="error-list" *ngIf="fcStudent['studentNumber'].errors && isSubmitted">
+			<div class="error-list" *ngIf="fcStudent['numberStudent'].errors && isSubmitted">
 
-				<div *ngIf ="fcStudent['studentNumber'].errors['required']"> Ce champ ne doit pas etre vide. </div>
+				<div *ngIf ="fcStudent['numberStudent'].errors['required']"> Ce champ ne doit pas etre vide. </div>
 			
-				<div *ngIf ="fcStudent['studentNumber'].errors['studentNumber']"> Identifiant trop court. </div>
+				<div *ngIf ="fcStudent['numberStudent'].errors['numberStudent']"> Identifiant trop court. </div>
 		   </div>
 
 			<input type="text" placeholder="Nom" formControlName="name"/>
@@ -36,12 +36,7 @@
 
 		   </div>
 
-            <input type="password" placeholder="Confirmer Mot de passe" formArrayName ="confirmPassword"/>
-			<div class="error-list" *ngIf="fcStudent['confirmPassword'].errors && isSubmitted">
-			
-				<div *ngIf ="fcStudent['confirmPassword'].errors['required']">Ce champ ne doit pas etre vide. </div>
-
-		   </div>
+           
 			<button>Créer un compte Etudiant </button>
 		</form>
 	</div>

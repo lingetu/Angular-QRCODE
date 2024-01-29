@@ -31,12 +31,13 @@ export class StudentService {
         
       tap({
         next:(student)=>{
+          let newStudent=student[0];
 
-        this.setStudentToLocalStorage(student)   // to save the session  
+        this.setStudentToLocalStorage(newStudent)   // to save the session  
 
-          this.UserStudent.next(student);
+          this.UserStudent.next(newStudent);
           this.toastrService.success(
-            `Bienvenu ${student.name} !`);
+            `Bienvenu ${newStudent.name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
 

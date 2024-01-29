@@ -69,12 +69,18 @@ router.get("/company/:entry", (req,res)=>{         // to accede to the students 
   
   router.post("/loginStudent", asynchandller(
      async (req, res)=>{
-        console.log(req.body);
+        
+        let user =
+        {
+        numberStudent:req.body.number,
+        password:req.body.password,
+        }
 
-        const {numberStudent,password}= req.body;
+        
+        
         
 
-        const student = await StudentModel.findOne({ password});
+        const student = await StudentModel.find(user);
         console.log(student);
         
         if(student){

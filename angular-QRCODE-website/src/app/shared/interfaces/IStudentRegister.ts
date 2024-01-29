@@ -1,6 +1,6 @@
 export interface  IStudentRegister{
     name: string,
-    studentNumber: Number,
+    numberStudent: Number,
     password : string,
-    confirmPassword : string , 
+   // confirmPassword : string 
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { StudentService } from '../services/student.service';
+import { Student } from '../shared/models/student';
 
 @Component({
   selector: 'app-profile-card-student',
@@ -9,18 +11,23 @@ export class ProfileCardStudentComponent {
   public getScreenWidth: any;
   public getScreenHeight: any;
   public getQrCodeWidth: any;
+  student:Student;
+  
+  constructor(private studentService :StudentService){}
 
-  ProfileCardData = 
-  [
-    {
-    key:'22004944',
-    name: 'Lucas Bondon',
-  },
-]
 
   ngOnInit() {
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
+
+      this.studentService.studentObservable.subscribe((newStudent)=>{
+        this.student = newStudent;
+  
+      })
+     
+
   }
+
+  
   
 }
