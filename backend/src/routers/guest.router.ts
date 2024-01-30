@@ -92,17 +92,22 @@ router.post("/loginGuest", asynchandller(
        console.log(req.body);
 
        const {email,password}= req.body;
+       /*let user =
+        {
+        email:req.body.email,
+        password:req.body.password,
+        }*/
        
 
-       const guest = await GuestModel.findOne({password});
+       const guest = await GuestModel.findOne({email, password});
        console.log(guest);
        
 
        if(guest){
-        
-           res.send(generateTokenResponse(guest));
-       }
-       else{
+
+        res.send(generateTokenResponse(guest));
+    }
+     else{
        
            res.status(HTTP_BAD_REQUEST).send("numero etudiant ou mot de password invalide!!")
        }

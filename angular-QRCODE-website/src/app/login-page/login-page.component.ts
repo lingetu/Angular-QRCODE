@@ -49,7 +49,7 @@ export class LoginPageComponent {
       password:['', Validators.required]
     });
     this.DataFormGuestLogin = this.formBuilder.group({
-      mail:['', Validators.required],
+      email:['', Validators.required],
       password:['', Validators.required]
     });
 
@@ -81,7 +81,7 @@ submitGuestLogin(){
    // For the student login page
 
   this.guestService.login({    
-    email:this.fcGuest['mail'].value,
+    email:this.fcGuest['email'].value,
     password: this.fcGuest['password'].value,
   }).subscribe(()=>{
 

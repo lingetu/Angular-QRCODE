@@ -1,8 +1,8 @@
-import { Guest } from './../shared/models/guest';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { GuestService } from '../services/guest.service';
+import { Guest } from './../shared/models/guest';
 
 
 @Component({
@@ -49,11 +49,7 @@ export class CreationEvenementComponent implements OnInit {
     }
 
 
-    /*alert(`number:${this.fc['number'].value}
-    ,
-    password :${this.fc['password'].value}`) */ // to catch the email and the password submitted
-
-    // For the student login page
+    
 
     this.guestService
       .creationEvent(
