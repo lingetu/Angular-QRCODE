@@ -81,7 +81,7 @@ submitGuestLogin(){
    // For the student login page
 
   this.guestService.login({    
-    mail:this.fcGuest['mail'].value,
+    email:this.fcGuest['mail'].value,
     password: this.fcGuest['password'].value,
   }).subscribe(()=>{
 

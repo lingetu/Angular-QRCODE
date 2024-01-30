@@ -14,7 +14,8 @@ const STUDENT_KEY = 'Student'; // We can modify this key when it's needed
 })
 export class StudentService {
   
-  private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
+ // private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
+ private UserStudent = new BehaviorSubject<Student>(new Student());
 
   public studentObservable:Observable<Student>;
 
@@ -31,13 +32,13 @@ export class StudentService {
 
       tap({
         next:(student)=>{
-        let newStudent=student[0];
+        ///let newStudent=student[0];
 
-        this.setStudentToLocalStorage(newStudent)   // to save the session  
+       // this.setStudentToLocalStorage(newStudent)   // to save the session  
 
-          this.UserStudent.next(newStudent);
+          this.UserStudent.next(student);
           this.toastrService.success(
-            `Bienvenu ${newStudent.name} !`);
+            `Bienvenu ${student.name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
            // to save the session

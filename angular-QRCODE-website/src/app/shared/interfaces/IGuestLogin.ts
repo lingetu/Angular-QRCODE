@@ -1,5 +1,5 @@
 export interface IGuestLogin{
-    mail: string;
+    email: string;
     password:string;
     
 }

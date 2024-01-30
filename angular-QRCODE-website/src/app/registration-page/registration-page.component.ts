@@ -182,7 +182,7 @@ submitRegistrationGuest(){
   };
   
 
-  this.guestService.register(guest).subscribe(_ =>{
+  this.guestService.registerGuest(guest).subscribe(_ =>{
     this.router.navigateByUrl(this.returnUrl);
   });
   

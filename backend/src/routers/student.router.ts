@@ -131,7 +131,7 @@ router.post("/loginStudent", (req, res)=>{
             res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
             return;
         }
-        const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+        //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
 
         const newStudent:Student={
             id:'',

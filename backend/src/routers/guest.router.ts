@@ -98,9 +98,9 @@ router.post("/loginGuest", asynchandller(
        console.log(guest);
        
 
-       if(guest[0]){
+       if(guest){
         
-           res.send(generateTokenResponse(guest[0]));
+           res.send(generateTokenResponse(guest));
        }
        else{
        
