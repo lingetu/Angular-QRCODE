@@ -6,7 +6,9 @@ import { HTTP_BAD_REQUEST } from "../constants/http.status";
 import { ProfileCardDataGuest } from "../data";
 import { Guest, GuestModel } from '../models/guest.model';
 
+
 const router = Router();
+var ObjectId = require('mongodb').ObjectId; 
 
 
 
@@ -55,7 +57,6 @@ router.get("/seed", asynchandller(
 router.post("/registerGuest", asynchandller(
     async(req, res)=>{
         const { name,email,company,adresse,password} = req.body;
-        console.log(req.body);
 
 
         const guest =  await GuestModel.findOne({email});
@@ -64,7 +65,13 @@ router.post("/registerGuest", asynchandller(
             return;
         }
         //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
-
+        let eventExemple = {
+            name: "eventExemple",
+            date: "2021-05-25",
+            time: "12:00",
+            hour: "2",
+            presentList: [],
+        }
         const newGuest:Guest={
             id:'',
             name,
@@ -73,6 +80,7 @@ router.post("/registerGuest", asynchandller(
             company,
             password : password,
             typeProfile :'Guest',
+            event : [eventExemple]
         }
         
         const dbGuest = await GuestModel.create(newGuest);
@@ -89,7 +97,6 @@ router.post("/registerGuest", asynchandller(
 //Login methode 
 router.post("/loginGuest", asynchandller(
     async (req, res)=>{
-       console.log(req.body);
 
        const {email,password}= req.body;
        /*let user =
@@ -116,30 +123,45 @@ router.post("/loginGuest", asynchandller(
  }
  ))
 
- /*
-router.post("/loginGuest", (req, res)=>{
-
-    // to test the login methode
-  console.log(req.body);
-
- let user =
- {
-  mail: req.body.mail,
-  password: req.body.password,
- };   // more simple than the first example  , called Destructuring Assignment 
- const find = ProfileCardDataGuest.find(data => data.mail === user.mail &&
-  data.password === user.password);
-
-  if (find){
-    console.log("connexté")
-      return res.send(generateTokenResponse(user));
-  }else{
-      console.log("Identifiant ou mot de passe pas valid!")
-      return res.status(300).send("Identifiant ou mot de passe pas valid!")
-  }
+ router.post("/creationEvent", asynchandller(
+    async (req, res)=>{
 
 
-})*/
+        if(req.body.guestID.guestID == null || req.body.event == null || req.body.guestID.guestID == "" || req.body.event == "" || req.body.guestID.guestID == undefined || req.body.event == undefined || req.body.event.name == null || req.body.event.name == "" || req.body.event.name == undefined || req.body.event.date == null || req.body.event.date == "" || req.body.event.date == undefined || req.body.event.time == null || req.body.event.time == "" || req.body.event.time == undefined || req.body.event.hour == null || req.body.event.hour == "" || req.body.event.hour == undefined)
+        {
+            res.status(HTTP_BAD_REQUEST).send("Erreur");
+        }
+        
+    
+    
+        var id = req.body.guestID.guestID;       
+        var _id = new ObjectId(id);
+
+       GuestModel.updateOne({"_id" :_id },{$push: {event: req.body.event}}).then((result:any)=>{
+        console.log(result);
+        res.send(generateTokenResponse(req.body.event));
+    }
+    ).catch((err:any)=>{
+        res.status(HTTP_BAD_REQUEST).send("Erreur");
+        console.log(err);
+    }
+    );
+
+    //    if(!guest){
+    //     res.status(HTTP_BAD_REQUEST).send("Erreur")
+    // }
+    // else{
+        
+    //     res.send(generateTokenResponse(guest));
+    // }
+
+ }
+ ))
+      
+      
+
+       
+
 
 
 
@@ -150,7 +172,7 @@ router.post("/loginGuest", (req, res)=>{
 const generateTokenResponse = (user :any )=>{
 
     const token = jwt.sign({
-        number:user.number , company :user.company
+        number:user.number ,
     } ,
     "ThisWouldRepresenteASecretKey",
     {

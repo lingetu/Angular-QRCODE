@@ -42,14 +42,14 @@ export class CreationEvenementComponent implements OnInit {
     return this.DataFormCreationEvent.controls;
   }
 
-  submitGuestLogin() {
+  submitCreationEvent() {
     this.isSubmitted = true;
     if (this.DataFormCreationEvent.invalid) {
       return;
     }
 
 
-    
+
 
     this.guestService
       .creationEvent(

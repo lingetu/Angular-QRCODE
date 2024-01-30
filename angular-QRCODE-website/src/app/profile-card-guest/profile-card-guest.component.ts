@@ -3,6 +3,8 @@ import { GuestService } from '../services/guest.service';
 import { StudentService } from "../services/student.service";
 import { Guest } from '../shared/models/guest';
 import { Student } from "../shared/models/student";
+import { IEventCreation } from '../shared/interfaces/IEventCreation';
+import { faQrcode,faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-card-guest',
@@ -15,6 +17,9 @@ export class ProfileCardGuestComponent implements OnInit {
   public getScreenHeight: any;
   public getQrCodeWidth: any;
   guest!: Guest;
+  events!: IEventCreation[];
+  faQrcode = faQrcode;
+  faTimes = faTimes;
 
   constructor(private guestService : GuestService){
 
@@ -38,6 +43,10 @@ export class ProfileCardGuestComponent implements OnInit {
         //Rediriger vers la page de connexion
         window.location.href = "/formLogin";
       }
+      this.events = this.guest.event;
+      console.log(this.events);
+
+
   }
 
 
