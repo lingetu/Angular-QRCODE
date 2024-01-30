@@ -71,12 +71,13 @@ color: #566787;
 display: inline-block;
 text-decoration: none;
 outline: none !important;
+margin-left: 10px;
 }
 table.table td a:hover {
 color: #2196F3;
 }
 table.table td a.edit {
-color: #FFC107;
+color: #000000;
 }
 table.table td a.delete {
 color: #F44336;

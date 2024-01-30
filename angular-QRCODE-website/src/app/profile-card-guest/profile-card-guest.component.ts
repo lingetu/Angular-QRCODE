@@ -4,6 +4,7 @@ import { StudentService } from "../services/student.service";
 import { Guest } from '../shared/models/guest';
 import { Student } from "../shared/models/student";
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
+import { faQrcode,faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-card-guest',
@@ -17,6 +18,8 @@ export class ProfileCardGuestComponent implements OnInit {
   public getQrCodeWidth: any;
   guest!: Guest;
   events!: IEventCreation[];
+  faQrcode = faQrcode;
+  faTimes = faTimes;
 
   constructor(private guestService : GuestService){
 
