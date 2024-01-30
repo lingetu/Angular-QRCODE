@@ -31,11 +31,11 @@ export class GuestService {
 
 
       tap({
-        next:(Guest)=>{
-          this.UserGuest.next(Guest);
+        next:(guest)=>{
+          this.UserGuest.next(guest);
           this.toastrService.success(
-            `Bienvenu ${Guest.name} !`);
-            'Connexion Reussi'                   // message to send in case of succes 
+            `Bienvenu ${guest.name} !`);
+            'Connexion Reussi'                   // message to send in case of succes
         },
 
         error:(errorresponse)=>{
@@ -50,8 +50,8 @@ export class GuestService {
 
   }
   registerGuest(guestLogin:IGuestLogin):Observable<Guest>{
-    return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe( 
-        
+    return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe(
+
       tap({
         next: (guest ) =>{
           this.setGuestToLocalStorage(guest);
@@ -67,14 +67,11 @@ export class GuestService {
         }
       })
     )
-         
 
-    ; // to connect the backend with the front 
+
+    ; // to connect the backend with the front
 
   }
-
-
-  
 private setGuestToLocalStorage(guest:Guest){
   localStorage.setItem(GUEST_KEY, JSON.stringify(guest));
 
@@ -86,7 +83,10 @@ private getGuestFromLocalStorage():Guest{
   return new Guest();
 }
 
-  creationEvent(guestId,dataEvent:IEventCreation):Observable<Guest>{
+
+
+
+creationEvent(guestId,dataEvent:IEventCreation):Observable<Guest>{
     let objEventForCreation={
       guestID:guestId,
       event:dataEvent

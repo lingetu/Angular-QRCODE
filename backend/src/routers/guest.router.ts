@@ -116,30 +116,16 @@ router.post("/loginGuest", asynchandller(
  }
  ))
 
- /*
-router.post("/loginGuest", (req, res)=>{
+ router.post("/creationEvent", asynchandller(
+    async (req, res)=>{
+       console.log(req.body);      
+ }
+ ))
+      
+      
 
-    // to test the login methode
-  console.log(req.body);
+       
 
- let user =
- {
-  mail: req.body.mail,
-  password: req.body.password,
- };   // more simple than the first example  , called Destructuring Assignment 
- const find = ProfileCardDataGuest.find(data => data.mail === user.mail &&
-  data.password === user.password);
-
-  if (find){
-    console.log("connexté")
-      return res.send(generateTokenResponse(user));
-  }else{
-      console.log("Identifiant ou mot de passe pas valid!")
-      return res.status(300).send("Identifiant ou mot de passe pas valid!")
-  }
-
-
-})*/
 
 
 
