@@ -89,22 +89,18 @@ router.post("/registerGuest", asynchandller(
 //Login methode 
 router.post("/loginGuest", asynchandller(
     async (req, res)=>{
-       
-       let user =
-       {
-       email:req.body.email,
-       password:req.body.password,
-       }
+       console.log(req.body);
 
-       
-       
+       const {email,password}= req.body;
        
 
-       const guest = await GuestModel.find(user);
+       const guest = await GuestModel.findOne({password});
        console.log(guest);
        
-       if(guest){
-           res.send(generateTokenResponse(guest));
+
+       if(guest[0]){
+        
+           res.send(generateTokenResponse(guest[0]));
        }
        else{
        
@@ -114,7 +110,6 @@ router.post("/loginGuest", asynchandller(
       
  }
  ))
- 
 
  /*
 router.post("/loginGuest", (req, res)=>{

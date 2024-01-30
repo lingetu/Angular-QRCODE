@@ -7,7 +7,7 @@ import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
 import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { Student } from '../shared/models/student';
 
-const STUDENT_KEY = 'Student'; // We can modify this key when it's needed 
+const STUDENT_KEY = 'Student'; // We can modify this key when it's needed
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,10 @@ export class StudentService {
   
   private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
 
-  //private UserStudent = new BehaviorSubject<Student>(new Student());
-
   public studentObservable:Observable<Student>;
 
 
-  constructor(private http:HttpClient , private toastrService:ToastrService) { 
+  constructor(private http:HttpClient , private toastrService:ToastrService) {
    this.studentObservable = this.UserStudent.asObservable();
   }
 
@@ -29,29 +27,32 @@ export class StudentService {
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
   login(studentLogin:IStudentLogin):Observable<Student>{
-    return this.http.post<Student>(STUDENT_LOGIN_URL ,studentLogin).pipe( 
-        
+    return this.http.post<Student>(STUDENT_LOGIN_URL ,studentLogin).pipe(
+
       tap({
         next:(student)=>{
-        //let newStudent=student[0];
+        let newStudent=student[0];
 
-        this.setStudentToLocalStorage(student[0])   // to save the session  
+        this.setStudentToLocalStorage(newStudent)   // to save the session  
 
-          this.UserStudent.next(student[0]);
+          this.UserStudent.next(newStudent);
           this.toastrService.success(
-            `Bienvenu ${student[0].name} !`);
+            `Bienvenu ${newStudent.name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
+           // to save the session
+
+
 
         error:(errorresponse)=>{
-          this.toastrService.error(errorresponse.error, 'Login Failed');  // message in failed case 
+          this.toastrService.error(errorresponse.error, 'Login Failed');  // message in failed case
         }
-        
+
 
       })
-         
 
-    ); // to connect the backend with the front 
+
+    ); // to connect the backend with the front
 
   }
 
@@ -86,7 +87,7 @@ register(studentRegister:IStudentRegister): Observable<Student>{
         )
       },
       error: (errorResponse)=>{
-        this.toastrService.error(errorResponse.error , 
+        this.toastrService.error(errorResponse.error ,
           'Inscription échouée !! ')
       }
     })

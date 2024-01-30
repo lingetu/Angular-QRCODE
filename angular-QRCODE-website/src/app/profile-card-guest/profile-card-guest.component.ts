@@ -14,19 +14,12 @@ export class ProfileCardGuestComponent implements OnInit {
   public getScreenWidth: any;
   public getScreenHeight: any;
   public getQrCodeWidth: any;
-  student!:Student;
   guest!: Guest;
 
-  constructor(studentService :StudentService, guestService : GuestService){
-    
-    studentService.studentObservable.subscribe((newStudent)=>{
-      this.student = newStudent;
+  constructor(private guestService : GuestService){
 
-    })
-    guestService.guestObservable.subscribe((newGuest)=>{
-      this.guest = newGuest;
 
-    })
+
 
   }
 
@@ -35,7 +28,17 @@ export class ProfileCardGuestComponent implements OnInit {
   ngOnInit() {
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
+
+      this.guestService.guestObservable.subscribe((newGuest)=>{
+        this.guest = newGuest;
+
+      })
+
+      if(this.guest.name == undefined){
+        //Rediriger vers la page de connexion
+        window.location.href = "/formLogin";
+      }
   }
-  
+
 
 }

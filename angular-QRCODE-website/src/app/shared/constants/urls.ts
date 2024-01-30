@@ -6,3 +6,5 @@ export const STUDENT_LOGIN_URL  = BASE_URL + "/api/students/loginStudent";
 export const STUDENT_REGISTER_URL  = BASE_URL + "/api/students/registerStudent";
 export const GUEST_LOGIN_URL  = BASE_URL + "/api/guests/loginGuest";
 export const GUEST_REGISTER_URL  = BASE_URL + "/api/guests/registerGuest";
+
+export const GUEST_CREATION_EVENT  = BASE_URL + "/api/guests/creationEvent";

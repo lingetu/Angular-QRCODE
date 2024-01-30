@@ -82,8 +82,8 @@ router.get("/company/:entry", (req,res)=>{         // to accede to the students 
         const student = await StudentModel.find(user);
         console.log(student);
         
-        if(student){
-            res.send(generateTokenResponse(student));
+        if(student[0]){
+            res.send(generateTokenResponse(student[0]));
         }
         else{
         
@@ -131,7 +131,7 @@ router.post("/loginStudent", (req, res)=>{
             res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
             return;
         }
-        //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+        const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
 
         const newStudent:Student={
             id:'',
@@ -154,7 +154,7 @@ router.post("/loginStudent", (req, res)=>{
   const generateTokenResponse = (user :any )=>{
 
     const token = jwt.sign({
-        number:user.number , company :user.company
+        number:user.number 
     } ,
     "ThisWouldRepresenteASecretKey",
     {

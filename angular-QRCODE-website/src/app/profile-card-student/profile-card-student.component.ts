@@ -12,7 +12,7 @@ export class ProfileCardStudentComponent {
   public getScreenHeight: any;
   public getQrCodeWidth: any;
   student:Student;
-  
+
   constructor(private studentService :StudentService){}
 
 
@@ -22,12 +22,15 @@ export class ProfileCardStudentComponent {
 
       this.studentService.studentObservable.subscribe((newStudent)=>{
         this.student = newStudent;
-  
+
       })
-     
+     if(this.student.name == undefined){
+       //Rediriger vers la page de connexion
+       window.location.href = "/formLogin";
+     }
 
   }
 
-  
-  
+
+
 }
