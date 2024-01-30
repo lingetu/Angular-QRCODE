@@ -1,6 +1,6 @@
 import { IEventCreation } from "../interfaces/IEventCreation";
 export class Guest{
-    id!: string;
+    id!: number;
    company!:string;
     password!: string;
     email!: string;

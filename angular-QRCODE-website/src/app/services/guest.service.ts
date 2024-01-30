@@ -31,10 +31,10 @@ export class GuestService {
 
 
       tap({
-        next:(Guest)=>{
-          this.UserGuest.next(Guest);
+        next:(guest)=>{
+          this.UserGuest.next(guest);
           this.toastrService.success(
-            `Bienvenu ${Guest.name} !`);
+            `Bienvenu ${guest.name} !`);
             'Connexion Reussi'                   // message to send in case of succes 
         },
 
@@ -91,6 +91,7 @@ private getGuestFromLocalStorage():Guest{
       guestID:guestId,
       event:dataEvent
     }
+    console.log(objEventForCreation.event );
     return this.http.post<Guest>(GUEST_CREATION_EVENT ,objEventForCreation).pipe(
 
 
