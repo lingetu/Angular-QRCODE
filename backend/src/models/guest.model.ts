@@ -1,4 +1,4 @@
-import { IEventCreation } from './../../../angular-QRCODE-website/src/app/shared/interfaces/IEventCreation';
+import { IEventCreation, IPresentList } from './../../../angular-QRCODE-website/src/app/shared/interfaces/IEventCreation';
 
 import { Schema, model } from "mongoose";
 export interface Guest{
@@ -12,6 +12,12 @@ export interface Guest{
     event : IEventCreation[];
 }
 
+const PresentListSchema = new Schema<IPresentList>({
+    id:{ type:String, required: false},
+    name:{ type:String, required: false},
+   
+  
+  });
 
 
 const EventCreationSchema = new Schema<IEventCreation>({
@@ -20,7 +26,7 @@ const EventCreationSchema = new Schema<IEventCreation>({
     time : {type : String, required : true},
     hour : {type : String, required : true},
     presentList : [{
-        type: String,
+        type: PresentListSchema,
         required: false,
     }]
   

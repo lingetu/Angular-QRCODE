@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
 import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
 import { CreationEvenementComponent } from './creation-evenement/creation-evenement.component';
+import { PresentListComponent } from './present-list/present-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CreationEvenementComponent } from './creation-evenement/creation-evenem
     ProfileCardStudentComponent,
     NavbarStudentComponent,
     NavbarGuestComponent,
-      CreationEvenementComponent
+      CreationEvenementComponent,
+      PresentListComponent
    ],
 
 

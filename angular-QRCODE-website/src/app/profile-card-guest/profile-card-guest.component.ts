@@ -5,6 +5,7 @@ import { Guest } from '../shared/models/guest';
 import { Student } from "../shared/models/student";
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { faQrcode,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-profile-card-guest',
@@ -20,13 +21,11 @@ export class ProfileCardGuestComponent implements OnInit {
   events!: IEventCreation[];
   faQrcode = faQrcode;
   faTimes = faTimes;
+  filteredEvents: IEventCreation[] = [];
 
-  constructor(private guestService : GuestService){
+  filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
 
-
-
-
-  }
+  constructor(private guestService : GuestService){  }
 
 
 
@@ -36,17 +35,42 @@ export class ProfileCardGuestComponent implements OnInit {
 
       this.guestService.guestObservable.subscribe((newGuest)=>{
         this.guest = newGuest;
-
       })
+
+
 
       if(this.guest.name == undefined){
         //Rediriger vers la page de connexion
         window.location.href = "/formLogin";
       }
+
+      this.guestService.getGuestLive(this.guest.id).subscribe((newGuest)=>{
+        this.guest = newGuest;
+        this.events = this.guest.event;
+      })
       this.events = this.guest.event;
-      console.log(this.events);
 
 
+
+
+  }
+
+
+  get event() {
+
+    const currentDateWithoutTime = new Date().toISOString().split('T')[0];
+
+    if (this.filter === 'Tout') {
+      this.filteredEvents = this.events;
+    } else if (this.filter === "Passé") {
+      this.filteredEvents = this.events.filter(event => new Date(event.date) < new Date(currentDateWithoutTime));
+    } else if (this.filter === "A venir") {
+      this.filteredEvents = this.events.filter(event => new Date(event.date) > new Date(currentDateWithoutTime));
+    } else if (this.filter === "Aujourdhui") {
+      this.filteredEvents = this.events.filter(event => new Date(event.date) >= new Date(currentDateWithoutTime) && new Date(event.date) < new Date(currentDateWithoutTime + 'T23:59:59'));
+    }
+
+    return this.filteredEvents;
   }
 
 
