@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GuestService } from '../services/guest.service';
-import { StudentService } from "../services/student.service";
 import { Guest } from '../shared/models/guest';
-import { Student } from "../shared/models/student";
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
-import { faQrcode,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faQrcode,faTimes,faList } from '@fortawesome/free-solid-svg-icons';
 import { of } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-profile-card-guest',
@@ -14,6 +15,8 @@ import { of } from 'rxjs';
 })
 export class ProfileCardGuestComponent implements OnInit {
 
+
+  modalRef: BsModalRef;
   public getScreenWidth: any;
   public getScreenHeight: any;
   public getQrCodeWidth: any;
@@ -21,12 +24,22 @@ export class ProfileCardGuestComponent implements OnInit {
   events!: IEventCreation[];
   faQrcode = faQrcode;
   faTimes = faTimes;
+  faList=faList;
   filteredEvents: IEventCreation[] = [];
 
   filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
 
-  constructor(private guestService : GuestService){  }
+  constructor(private guestService : GuestService,private modalService: NgbModal){ }
 
+
+
+
+
+
+
+   openModal(template) {
+    this.modalService.open(template);
+}
 
 
   ngOnInit() {

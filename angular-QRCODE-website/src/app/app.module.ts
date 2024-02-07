@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 /*MODULE*/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeModule } from 'angularx-qrcode';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 /*ROUTING*/
 import { RouterModule } from '@angular/router';
@@ -33,6 +34,7 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
 import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
 import { CreationEvenementComponent } from './creation-evenement/creation-evenement.component';
 import { PresentListComponent } from './present-list/present-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,7 @@ import { PresentListComponent } from './present-list/present-list.component';
     ProfileCardStudentComponent,
     NavbarStudentComponent,
     NavbarGuestComponent,
-      CreationEvenementComponent,
+    CreationEvenementComponent,
       PresentListComponent
    ],
 
@@ -61,6 +63,8 @@ import { PresentListComponent } from './present-list/present-list.component';
     QRCodeModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
+
 
 
 
@@ -81,6 +85,7 @@ import { PresentListComponent } from './present-list/present-list.component';
         /**S'enregistrer avec son mail ou numéro étudiant */
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
+        {path : 'PresentList', component: PresentListComponent},
         { path: '**', component: NullUrlComponent},
             ]),
 
@@ -89,6 +94,7 @@ import { PresentListComponent } from './present-list/present-list.component';
         positionClass :'toast-bottom-right',
         newestOnTop:false
       }),
+        NgbModule,
 
   ],
   providers: [],
