@@ -1,11 +1,12 @@
+
 import { Component, OnInit } from '@angular/core';
 import { GuestService } from '../services/guest.service';
 import { Guest } from '../shared/models/guest';
-import { IEventCreation } from '../shared/interfaces/IEventCreation';
-import { faQrcode,faTimes,faList } from '@fortawesome/free-solid-svg-icons';
+import { IEventCreation, IPresentList } from '../shared/interfaces/IEventCreation';
+import { faQrcode,faTimes,faList,faDownload } from '@fortawesome/free-solid-svg-icons';
 import { of } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal,NgbModalRef,NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ProfileCardGuestComponent implements OnInit {
 
 
-  modalRef: BsModalRef;
+  modalRef: NgbModalRef;
   public getScreenWidth: any;
   public getScreenHeight: any;
   public getQrCodeWidth: any;
@@ -26,21 +27,55 @@ export class ProfileCardGuestComponent implements OnInit {
   faTimes = faTimes;
   faList=faList;
   filteredEvents: IEventCreation[] = [];
+  presentList: IPresentList[] = [];
+
+  faDownload = faDownload;
+
+  // deleteEvent(event: IEventCreation) {
+  //   this.guestService.deleteEvent(event.name,event.date,this.guest.id).subscribe((newGuest) => {
+  //     this.guest = newGuest;
+  //     this.events = this.guest.event;
+  //   });
+  // }
+
+  downloadFile(IPresentList:IPresentList[])
+  {
+
+    this.toCSV(this.presentList);
+    console.log(this.toCSV(this.presentList));
+  }
 
   filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
 
-  constructor(private guestService : GuestService,private modalService: NgbModal){ }
+  constructor(private guestService : GuestService,private modalService:NgbModal){ }
+
+   toCSV(json) {
+    json = Object.values(json);
+    var csv = "";
+    var keys = (json[0] && Object.keys(json[0])) || [];
+    csv += keys.join(',') + '\n';
+    for (var line of json) {
+      csv += keys.map(key => line[key]).join(',') + '\n';
+    }
+    return csv;
+  }
 
 
 
 
 
 
+   openModal(template, event: IEventCreation) {
+    this.presentList = event.presentList;
+    this.modalService.open(template,{
+      windowClass: 'modal-dialog-centered',
+      centered: true, // This centers the modal vertically
 
-   openModal(template) {
-    this.modalService.open(template);
-}
-
+    });
+  }
+  closeModal() {
+    this.modalService.dismissAll();
+  }
 
   ngOnInit() {
       this.getScreenWidth = window.innerWidth;

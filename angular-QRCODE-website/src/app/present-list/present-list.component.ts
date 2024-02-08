@@ -11,10 +11,6 @@ import { IEventCreation } from '../shared/interfaces/IEventCreation';
 export class PresentListComponent {
 
   @Input() presentList: any;
-  faDownload = faDownload;
 
 
-
-  downloadFile()
-  {}
 }
