@@ -34,6 +34,8 @@ import { EditeProfileGuestComponent } from './edite-profile-guest/edite-profile-
 import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
 import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PresentListComponent } from './present-list/present-list.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
       CreationEvenementComponent,
       EditeProfileGuestComponent,
     
+    CreationEvenementComponent,
+      PresentListComponent
    ],
 
 
@@ -63,6 +67,8 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
     QRCodeModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
+
 
 
 
@@ -86,6 +92,8 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
         { path: 'editeProfileGuest', component: EditeProfileGuestComponent},
         
 
+        {path : 'PresentList', component: PresentListComponent},
+        { path: '**', component: NullUrlComponent},
             ]),
 
       ToastrModule.forRoot({
@@ -93,6 +101,7 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
         positionClass :'toast-bottom-right',
         newestOnTop:false
       }),
+        NgbModule,
 
   ],
   providers: [],

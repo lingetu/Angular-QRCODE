@@ -3,6 +3,10 @@ export interface IEventCreation{
     date: string;
     time: string;
     hour: string;
-    presentList : number[];
+    presentList : IPresentList[];
 
+}
+export interface IPresentList{
+  id:String;
+  name: string;
 }

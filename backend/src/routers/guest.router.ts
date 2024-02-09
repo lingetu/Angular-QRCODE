@@ -67,12 +67,27 @@ router.post("/registerGuest", asynchandller(
             return;
         }
         const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+        let presentlistExemple = [
+            {id:"651681655165",
+            name:"guestExemple",
+        },
+        {
+            id:"651681655165",
+            name:"guestExemple",
+        },
+        {
+            id:"60a7e3e3e3e3e3e3e3e3e3e3",
+            name:"guestExemple",
+    }
+
+        ]
+        //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
         let eventExemple = {
             name: "eventExemple",
             date: "2021-05-25",
             time: "12:00",
             hour: "2",
-            presentList: [],
+            presentList: presentlistExemple,
         }
         const newGuest:Guest={
             id:'',
@@ -147,13 +162,39 @@ router.post("/loginGuest", asynchandller(
 
    
 
-
-
-
-
-
  }
  ))
+
+ router.post("/getGuestLive", asynchandller(
+    async (req, res)=>{
+        console.log("getGuestLive");
+        console.log(req.body);    
+    
+        var id = req.body.guestID;       
+        var _id = new ObjectId(id);
+
+
+        const guest = GuestModel.findOne({"_id" :_id }).then((result:any)=>{
+            console.log(result);
+            res.send(generateTokenResponse(result));
+    }
+
+
+    ).catch((err:any)=>{
+        res.status(HTTP_BAD_REQUEST).send("Erreur");
+        console.log(err);
+    }
+    );
+ }
+ ))
+      
+      
+
+
+
+
+
+
 
        
 
