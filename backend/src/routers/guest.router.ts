@@ -240,7 +240,7 @@ router.post("/loginGuest", asynchandller(
                 console.log(updatedGuest);
         if (updatedGuest) {
             //console.log("non trouve")
-            res.send("Modifications bien sauvegardées")
+            res.send(generateTokenResponse(updatedGuest));
         } 
     } catch (err) {
         console.error("Erreur lors de la mise à jour du profil d'invité :", err);

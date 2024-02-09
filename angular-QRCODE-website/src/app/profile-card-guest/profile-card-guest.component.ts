@@ -40,6 +40,34 @@ export class ProfileCardGuestComponent implements OnInit {
 
   filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
 
+
+
+
+  ngOnInit() {
+
+
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
+
+    this.guestService.guestObservable.subscribe((newGuest)=>{
+      this.guest = newGuest;
+    })
+
+
+
+    if(this.guest.name == undefined){
+      //Rediriger vers la page de connexion
+      window.location.href = "/formLogin";
+    }
+
+    this.guestService.getGuestLive(this.guest.id).subscribe((newGuest)=>{
+      this.guest = newGuest;
+      this.events = this.guest.event;
+    })
+}
+
+
+
   deleteEvent(event:IEvent){
     this.closeModal();
     {
@@ -124,28 +152,7 @@ export class ProfileCardGuestComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  ngOnInit() {
 
-
-      this.getScreenWidth = window.innerWidth;
-      this.getScreenHeight = window.innerHeight;
-
-      this.guestService.guestObservable.subscribe((newGuest)=>{
-        this.guest = newGuest;
-      })
-
-
-
-      if(this.guest.name == undefined){
-        //Rediriger vers la page de connexion
-        window.location.href = "/formLogin";
-      }
-
-      this.guestService.getGuestLive(this.guest.id).subscribe((newGuest)=>{
-        this.guest = newGuest;
-        this.events = this.guest.event;
-      })
-  }
 
 
   get event() {

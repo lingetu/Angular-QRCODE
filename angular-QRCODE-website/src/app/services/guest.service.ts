@@ -12,7 +12,7 @@ import {
   GUEST_EDITE_URL
 
 } from '../shared/constants/urls';
- 
+
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
 
@@ -106,36 +106,37 @@ export class GuestService {
 
 
 
-  private getGuestFromLocalStorage(): Guest {
-    const guestJson = localStorage.getItem(GUEST_KEY);
-    if (guestJson) return JSON.parse(guestJson) as Guest;
-    return new Guest();
-  }
+  // private getGuestFromLocalStorage(): Guest {
+  //   const guestJson = localStorage.getItem(GUEST_KEY);
+  //   if (guestJson) return JSON.parse(guestJson) as Guest;
+  //   return new Guest();
+  // }
 
 
 
 
 
-// Edite profile 
+// Edite profile
 
 saveProfileGuest(guestEdite):Observable<Guest>{
-  
+
   console.log(guestEdite);
   return this.http.post<Guest>(GUEST_EDITE_URL ,guestEdite).pipe(
 
     tap({
-      next: (guest ) =>{
-       this.setGuestToLocalStorage(guest);
-        this.UserGuest.next(guest);
+      next: (guest) =>{
+      //  this.setGuestToLocalStorage(guest);
+        // this.UserGuest.next(guest);
         this.toastrService.success(
           ` ${guest.name}`,
           'Vos modifications sont bien sauvegardées!!'
         )
       },
        error: (errorResponse)=>{
+        console.log(guestEdite);
         this.toastrService.error(errorResponse.error ,
           'Sauvegarde échouée!! ')
-      
+
     }
   })
   )

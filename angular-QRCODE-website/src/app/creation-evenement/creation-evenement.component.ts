@@ -28,6 +28,11 @@ export class CreationEvenementComponent implements OnInit {
       this.guest = newGuest;
     });
 
+    if (this.guest.name == undefined) {
+      //Rediriger vers la page de connexion
+      window.location.href = '/formLogin';
+    }
+
     this.DataFormCreationEvent = this.formBuilder.group({
       eventName: ['', Validators.required],
       eventDate: ['', Validators.required],

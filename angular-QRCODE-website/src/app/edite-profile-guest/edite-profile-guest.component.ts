@@ -13,13 +13,13 @@ import { Guest } from '../shared/models/guest';
 export class EditeProfileGuestComponent  implements OnInit   {
 
 
-  
+
   DataForm: FormGroup = new FormGroup({});
   faUser = faUser;
   payLoad: any;
-  
 
- PreviewData() 
+
+ PreviewData()
     {
          this.payLoad = JSON.stringify(this.DataForm.value);
          console.log(this.payLoad);
@@ -27,11 +27,11 @@ export class EditeProfileGuestComponent  implements OnInit   {
 
     DataGuestEditeForm !: FormGroup;
     isSubmitted = false;
-    returnUrl = '';   // returnUrl = '/home';
+    returnUrlGuest = '/homeGuest';   // returnUrl = '/home';
     guest!: Guest;
 
 
-    constructor(private formBuilder: FormBuilder , 
+    constructor(private formBuilder: FormBuilder ,
       private guestService :GuestService ,
       private activatedRoute : ActivatedRoute,
       private router: Router) {}
@@ -41,9 +41,17 @@ export class EditeProfileGuestComponent  implements OnInit   {
         this.guestService.guestObservable.subscribe((newGuest)=>{
           this.guest = newGuest;
           console.log(this.guest);
-  
+
         })
-        
+        if(this.guest.name == undefined){
+          //Rediriger vers la page de connexion
+          window.location.href = "/formLogin";
+        }
+
+
+
+
+
         this.DataGuestEditeForm = this.formBuilder.group({
 
           name :[''],
@@ -60,26 +68,26 @@ export class EditeProfileGuestComponent  implements OnInit   {
           adresse: this.guest.adresse,
           company: this.guest.company,
           passeword : this.guest.password,
-          
-          
+
+
         });
 
       }
-        
 
-        
+
+
 get fcEditeGuest (){
   return this.DataGuestEditeForm.controls;
 }
 
-//Guest registration methode 
+//Guest registration methode
 
 submitEditeGuest()
 {
   this.isSubmitted = true;
-  
+
     if(this.DataGuestEditeForm.invalid) {
-      
+
       // Log des erreurs spécifiques
       if (this.fcEditeGuest['name'].errors) {
         console.log('Erreur dans le champ "name" :', this.fcEditeGuest['name'].errors);
@@ -88,17 +96,17 @@ submitEditeGuest()
         console.log('Erreur dans le champ "email" :', this.fcEditeGuest['email'].errors);
     }
    return;
-  } 
-  
+  }
+
   const fv = this.DataGuestEditeForm.value;
- 
+
   const guestEdite: any = {
     id: this.guest.id,
     name : fv.name,
     company : fv.company,
     adresse: fv.adresse,
     email : fv.email,
-    
+
   };
 
   console.log(guestEdite);
@@ -107,16 +115,16 @@ submitEditeGuest()
     guestEdite
   )
   .subscribe(() => {
-    this.router.navigate([this.returnUrl]);
+    this.router.navigate([this.returnUrlGuest]);
   });
 }
 
   // this.guestService.saveProfileGuest(guestEdite).subscribe(_ =>{
   //   this.router.navigateByUrl(this.returnUrl);
   // });
-  
 
-  
+
+
 
 
 
