@@ -78,7 +78,7 @@ export class RegistrationPageComponent  {
 
 
 
-/************************************* STUDENT REGISTRATION ****************************** */
+/************************************* STUDENT REGISTRATION ****************************************  */
 
 
 get fcStudent (){

@@ -29,9 +29,11 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 // the following is added by Falilou :
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
-import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
 import { CreationEvenementComponent } from './creation-evenement/creation-evenement.component';
+import { EditeProfileGuestComponent } from './edite-profile-guest/edite-profile-guest.component';
+import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
+import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { CreationEvenementComponent } from './creation-evenement/creation-evenem
     ProfileCardStudentComponent,
     NavbarStudentComponent,
     NavbarGuestComponent,
-      CreationEvenementComponent
+      CreationEvenementComponent,
+      EditeProfileGuestComponent,
+    
    ],
 
 
@@ -79,7 +83,9 @@ import { CreationEvenementComponent } from './creation-evenement/creation-evenem
         /**S'enregistrer avec son mail ou numéro étudiant */
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
-        { path: '**', component: NullUrlComponent},
+        { path: 'editeProfileGuest', component: EditeProfileGuestComponent},
+        
+
             ]),
 
       ToastrModule.forRoot({

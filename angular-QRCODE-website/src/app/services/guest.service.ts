@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { GUEST_CREATION_EVENT, GUEST_LOGIN_URL, GUEST_REGISTER_URL } from '../shared/constants/urls';
+import { GUEST_CREATION_EVENT, GUEST_EDITE_URL, GUEST_LOGIN_URL, GUEST_REGISTER_URL } from '../shared/constants/urls';
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
 import { Guest } from '../shared/models/guest';
@@ -49,6 +49,8 @@ export class GuestService {
     ); // to connect the backend with the front
 
   }
+
+
   registerGuest(guestLogin:IGuestLogin):Observable<Guest>{
     return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe(
 
@@ -114,4 +116,36 @@ creationEvent(guestId,dataEvent:IEventCreation):Observable<Guest>{
     );
 
 }
+
+// Edite profile 
+
+saveProfileGuest(guestEdite):Observable<Guest>{
+  
+  console.log(guestEdite);
+  return this.http.post<Guest>(GUEST_EDITE_URL ,guestEdite).pipe(
+
+    tap({
+      next: (guest ) =>{
+       this.setGuestToLocalStorage(guest);
+        this.UserGuest.next(guest);
+        this.toastrService.success(
+          ` ${guest.name}`,
+          'Vos modifications sont bien sauvegardées!!'
+        )
+      },
+       error: (errorResponse)=>{
+        this.toastrService.error(errorResponse.error ,
+          'Sauvegarde échouée!! ')
+      
+    }
+  })
+  )
+
+
+
+
+
+}
+
+
 }

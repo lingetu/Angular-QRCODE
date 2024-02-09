@@ -74,11 +74,6 @@ submitGuestLogin(){
   if(this.DataFormGuestLogin.invalid) {
     return};
 
-  /*alert(`number:${this.fc['number'].value}   
-  ,
-  password :${this.fc['password'].value}`) */     // to catch the email and the password submitted 
-   
-   // For the student login page
 
   this.guestService.login({    
     email:this.fcGuest['email'].value,

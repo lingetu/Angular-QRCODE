@@ -1,8 +1,11 @@
 ul
  {
+display: flexbox;
+justify-content: space-between;
 
 height:
 70px;
+
 
 list-style-type:
 none;
@@ -96,6 +99,6 @@ background-color:
 color:#034f71;
 }
 .navbar{
-display:
- flexbox;
+display:flexbox;
+ 
 }
