@@ -96,8 +96,15 @@ export class ProfileCardGuestComponent implements OnInit {
   downloadFile(IPresentList:IPresentList[])
   {
 
-    this.toCSV(this.presentList);
+    const file=this.toCSV(this.presentList);
     console.log(this.toCSV(this.presentList));
+    const newBlob = new Blob([file], { type: "text/csv" });
+const data = window.URL.createObjectURL(newBlob);
+const link = document.createElement("a");
+link.href = data;
+link.download = ("eventLIstpresent"); //set a name for file
+link.click();
+
   }
 
 
