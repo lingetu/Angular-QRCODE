@@ -13,10 +13,10 @@ import { PasswordsMatchValidator } from '../shared/validators/passwords_match_va
   styleUrls: ['./registration-page.component.css']
 })
 export class RegistrationPageComponent  {
- 
+
   rightpanelactive(elem: HTMLElement) {
     elem.className = 'container right-panel-active';
-   
+
   }
   leftpanelactive(elem: HTMLElement) {
     elem.className = 'container';
@@ -25,13 +25,13 @@ export class RegistrationPageComponent  {
   DataForm: FormGroup = new FormGroup({});
   payLoad: any;
 
- PreviewData() 
+ PreviewData()
     {
          this.payLoad = JSON.stringify(this.DataForm.value);
          console.log(this.payLoad);
     }
 
-  
+
     DataStudentRegisterForm !: FormGroup;
     DataGuestRegisterForm !: FormGroup;
     isSubmitted = false;
@@ -52,7 +52,7 @@ export class RegistrationPageComponent  {
           confirmPassword:['',Validators.required]
         },
         {
-          
+
           validators: PasswordsMatchValidator('password', 'confirmPassword')
         });
 
@@ -60,25 +60,24 @@ export class RegistrationPageComponent  {
 
           name :['',[ Validators.required , Validators.minLength(2)]],
           company :['',[Validators.required ,Validators.minLength(1)]],
-          adresse:['',[Validators.required, Validators.minLength(4)]],
           email:['', [Validators.required ,Validators.email]],
           password:['', [Validators.required]],
           confirmPassword:['',[Validators.required]]
         },{
-        
+
           validators: PasswordsMatchValidator('password', 'confirmPassword'),
-        
+
 
         });
-    
+
         this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
-      }    
- 
+      }
 
 
 
 
-/************************************* STUDENT REGISTRATION ****************************** */
+
+/************************************* STUDENT REGISTRATION ****************************************  */
 
 
 get fcStudent (){
@@ -90,7 +89,7 @@ get fcStudent (){
 
 submitRegistrationStudent(){
 
- 
+
   this.isSubmitted = true;
   console.log(this.DataStudentRegisterForm.value['password']);
   console.log(this.DataStudentRegisterForm.value['confirmPassword']);
@@ -109,25 +108,25 @@ submitRegistrationStudent(){
  if (this.fcStudent['confirmPassword'].errors) {
   console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
 }
-   
+
 
    return;
-  } 
-  
+  }
+
   const fv = this.DataStudentRegisterForm.value;
- 
+
   const student : IStudentRegister ={
     name : fv.name,
     numberStudent : fv.numberStudent,
     password : fv.password,
     confirmPassword : fv.confirmPassword
   };
-  
+
 
   this.studentService.register(student).subscribe(_ =>{
     this.router.navigateByUrl(this.returnUrl);
   });
-  
+
 
 
 }
@@ -142,11 +141,11 @@ get fcGuest (){
   return this.DataGuestRegisterForm.controls;
 }
 
-//Guest registration methode 
+//Guest registration methode
 
 submitRegistrationGuest(){
 
- 
+
   this.isSubmitted = true;
   //console.log(this.DataStudentRegisterForm.value['password']);
   //console.log(this.DataStudentRegisterForm.value['confirmPassword']);
@@ -165,13 +164,13 @@ submitRegistrationGuest(){
  if (this.fcGuest['confirmPassword'].errors) {
   console.log('Erreur dans le champ "confirmPassword" :', this.fcGuest['confirmPassword'].errors);
 }
-   
+
 
    return;
-  } 
-  
+  }
+
   const fv = this.DataGuestRegisterForm.value;
- 
+
   const guest : IGuestRegister ={
     name : fv.name,
     company : fv.company,
@@ -180,12 +179,12 @@ submitRegistrationGuest(){
     password : fv.password,
     confirmPassword : fv.confirmPassword
   };
-  
+
 
   this.guestService.registerGuest(guest).subscribe(_ =>{
     this.router.navigateByUrl(this.returnUrl);
   });
-  
+
 
 
 }

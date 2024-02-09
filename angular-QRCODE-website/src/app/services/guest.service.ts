@@ -1,16 +1,21 @@
+import { Guest } from './../shared/models/guest';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import {
-  GUEST_CREATION_EVENT,
+     GUEST_CREATION_EVENT,
   GUEST_LOGIN_URL,
   GUEST_REGISTER_URL,
   GUEST_GET_GUEST_LIVE,
+  GUEST_DELETE_EVENT,
+  GUEST_EDITE_URL
+
 } from '../shared/constants/urls';
+ 
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
-import { Guest } from '../shared/models/guest';
+
 
 const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 
@@ -43,8 +48,11 @@ export class GuestService {
       })
     ); // to connect the backend with the front
   }
-  registerGuest(guestLogin: IGuestLogin): Observable<Guest> {
-    return this.http.post<Guest>(GUEST_REGISTER_URL, guestLogin).pipe(
+
+
+  registerGuest(guestLogin:IGuestLogin):Observable<Guest>{
+    return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe(
+
       tap({
         next: (guest) => {
           this.setGuestToLocalStorage(guest);
@@ -71,10 +79,30 @@ export class GuestService {
     let objGuestId = {
       guestID: guestId,
     };
-    console.log(objGuestId);
-    console.log(objGuestId.guestID);
-    return this.http.post<Guest>(GUEST_GET_GUEST_LIVE, objGuestId)
+
+    return this.http.post<Guest>(GUEST_GET_GUEST_LIVE, objGuestId);
   }
+
+  deleteEvent(eventId: string,Guest: Guest): Observable<Guest>{
+    let obj= {
+      guestID: Guest.id,
+      eventID: eventId
+    };
+
+    return this.http.post<Guest>(GUEST_DELETE_EVENT, obj).pipe(
+
+    tap({
+      next: (obj) => {
+        this.toastrService.success(`Evenement `);
+        ('supprimé avec succé'); // message to send in case of succes
+      },
+
+      error: (errorresponse) => {
+        this.toastrService.error(errorresponse.error, 'Failed'); // message in failed case
+      },
+    })
+  );
+}
 
 
 
@@ -86,6 +114,39 @@ export class GuestService {
 
 
 
+
+
+// Edite profile 
+
+saveProfileGuest(guestEdite):Observable<Guest>{
+  
+  console.log(guestEdite);
+  return this.http.post<Guest>(GUEST_EDITE_URL ,guestEdite).pipe(
+
+    tap({
+      next: (guest ) =>{
+       this.setGuestToLocalStorage(guest);
+        this.UserGuest.next(guest);
+        this.toastrService.success(
+          ` ${guest.name}`,
+          'Vos modifications sont bien sauvegardées!!'
+        )
+      },
+       error: (errorResponse)=>{
+        this.toastrService.error(errorResponse.error ,
+          'Sauvegarde échouée!! ')
+      
+    }
+  })
+  )
+
+
+
+
+
+}
+
+
   creationEvent(guestId, dataEvent: IEventCreation): Observable<Guest> {
     let objEventForCreation = {
       guestID: guestId,
@@ -93,7 +154,7 @@ export class GuestService {
     };
     console.log(objEventForCreation.event);
     return this.http
-      .post<Guest>(GUEST_CREATION_EVENT, objEventForCreation)
+    .post<Guest>(GUEST_CREATION_EVENT, objEventForCreation)
       .pipe(
         tap({
           next: (event) => {
@@ -107,4 +168,6 @@ export class GuestService {
         })
       );
   }
+
+
 }

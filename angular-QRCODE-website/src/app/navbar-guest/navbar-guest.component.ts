@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { faEnvelope, faHome, faProjectDiagram, faQrcode, faUser, faCalendar} from  "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faEnvelope, faHome, faProjectDiagram, faQrcode, faUser, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { StudentService } from "../services/student.service";
 import { Student } from "../shared/models/student";
 
@@ -16,6 +16,7 @@ export class NavbarGuestComponent implements OnInit {
   faProjectDiagram = faProjectDiagram;
   faCalendarWeek = faCalendar;
   faUser = faUser;
+  faEdite = faUserPen;
   student!:Student;
 
   constructor(studentService :StudentService){

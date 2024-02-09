@@ -8,7 +8,6 @@ export interface Guest{
     email: string;
     typeProfile: string;
     company : string;
-    adresse : string,
     event : IEventCreation[];
 }
 
@@ -40,7 +39,6 @@ export const GuestSchema = new Schema<Guest>({
     email:{ type:String, required: true},
     typeProfile:{type:String },
     company:{type:String,required: true},
-    adresse:{type:String ,required : true},
     event : [{type : EventCreationSchema, required : false}]
     
 

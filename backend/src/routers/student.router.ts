@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import asynchandller from 'express-async-handler';
 import jwt from "jsonwebtoken";
@@ -74,12 +73,10 @@ router.get("/company/:entry", (req,res)=>{         // to accede to the students 
         numberStudent:req.body.number,
         password:req.body.password,
         }
-
-        
         
         
 
-        const student = await StudentModel.find(user);
+       const student = await StudentModel.find(user);
         console.log(student);
         
         if(student[0]){
@@ -92,6 +89,7 @@ router.get("/company/:entry", (req,res)=>{         // to accede to the students 
   
        
   }
+
   ))
   
 
@@ -131,7 +129,7 @@ router.post("/loginStudent", (req, res)=>{
             res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
             return;
         }
-        //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
+       // const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
 
         const newStudent:Student={
             id:'',

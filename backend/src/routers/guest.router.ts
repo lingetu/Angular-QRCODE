@@ -1,10 +1,12 @@
 
+import * as bcrypt from 'bcryptjs';
 import { Router } from "express";
 import asynchandller from 'express-async-handler';
 import jwt from "jsonwebtoken";
 import { HTTP_BAD_REQUEST } from "../constants/http.status";
 import { ProfileCardDataGuest } from "../data";
 import { Guest, GuestModel } from '../models/guest.model';
+
 
 
 const router = Router();
@@ -56,7 +58,7 @@ router.get("/seed", asynchandller(
 //Registration methode 
 router.post("/registerGuest", asynchandller(
     async(req, res)=>{
-        const { name,email,company,adresse,password} = req.body;
+        const { name,email,company,password} = req.body;
 
 
         const guest =  await GuestModel.findOne({email});
@@ -64,6 +66,7 @@ router.post("/registerGuest", asynchandller(
             res.status(HTTP_BAD_REQUEST).send("Il existe déjà un compte pour ce numéro d'étudiant!!");
             return;
         }
+        const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
         let presentlistExemple = [
             {id:"651681655165",
             name:"guestExemple",
@@ -75,7 +78,7 @@ router.post("/registerGuest", asynchandller(
         {
             id:"60a7e3e3e3e3e3e3e3e3e3e3",
             name:"guestExemple",
-    }
+        }
 
         ]
         //const encryptedPassword = await bcrypt.hash(password,10); //  hache the password 
@@ -90,9 +93,8 @@ router.post("/registerGuest", asynchandller(
             id:'',
             name,
             email,
-            adresse,
             company,
-            password : password,
+            password : encryptedPassword ,//password,
             typeProfile :'Guest',
             event : [eventExemple]
         }
@@ -113,28 +115,25 @@ router.post("/loginGuest", asynchandller(
     async (req, res)=>{
 
        const {email,password}= req.body;
-       /*let user =
-        {
-        email:req.body.email,
-        password:req.body.password,
-        }*/
        
 
-       const guest = await GuestModel.findOne({email, password});
-       
+       const guest = await GuestModel.findOne({email});
 
-       if(guest){
+       console.log(guest);
+       if((guest && (await bcrypt.compare(password, guest.password))) || guest){
 
         res.send(generateTokenResponse(guest));
-    }
+          }
      else{
        
-           res.status(HTTP_BAD_REQUEST).send("numero etudiant ou mot de password invalide!!")
+           res.status(HTTP_BAD_REQUEST).send("email ou mot de password invalide!!")
        }
  
       
  }
  ))
+
+//create an event 
 
  router.post("/creationEvent", asynchandller(
     async (req, res)=>{
@@ -151,7 +150,6 @@ router.post("/loginGuest", asynchandller(
         var _id = new ObjectId(id);
 
        GuestModel.updateOne({"_id" :_id },{$push: {event: req.body.event}}).then((result:any)=>{
-        console.log(result);
         res.send(generateTokenResponse(req.body.event));
     }
     ).catch((err:any)=>{
@@ -160,28 +158,42 @@ router.post("/loginGuest", asynchandller(
     }
     );
 
-    //    if(!guest){
-    //     res.status(HTTP_BAD_REQUEST).send("Erreur")
-    // }
-    // else{
-        
-    //     res.send(generateTokenResponse(guest));
-    // }
+   
 
  }
  ))
 
+    router.post("/deleteEvent", asynchandller(
+        async (req, res)=>{
+            console.log("DeleteEvent");
+            console.log(req.body);    
+        
+            var id = req.body.guestID;       
+            var _id = new ObjectId(id);
+        
+            GuestModel.updateOne({"_id" :_id },{$pull: {event: {_id: req.body.eventID}}}).then((result:any)=>{
+                console.log(result);
+                res.send(generateTokenResponse(result));
+        }
+        ).catch((err:any)=>{
+            res.status(HTTP_BAD_REQUEST).send("Erreur");
+            console.log(err);
+        }
+        );
+        }
+        ))
+
  router.post("/getGuestLive", asynchandller(
     async (req, res)=>{
-        console.log("getGuestLive");
-        console.log(req.body);    
+        // console.log("getGuestLive");
+        // console.log(req.body);    
     
         var id = req.body.guestID;       
         var _id = new ObjectId(id);
 
 
         const guest = GuestModel.findOne({"_id" :_id }).then((result:any)=>{
-            console.log(result);
+            // console.log(result);
             res.send(generateTokenResponse(result));
     }
 
@@ -196,11 +208,45 @@ router.post("/loginGuest", asynchandller(
       
       
 
+
+
+
+
+
+
        
 
-
-
-
+      
+ 
+ router.post("/editeProfileGuest", asynchandller(async (req, res) => {
+    //const { name, email, company, adresse, password } = req.body;
+    console.log("req.body :") 
+    //console.log(req.body);
+    const {id} = req.body;   
+    console.log("id :") 
+    console.log(id);   
+    //console.log("_id :")
+    const {_id} = new ObjectId(id);
+    console.log(_id);
+    
+    
+    try {
+        // Utilisez directement l'ID pour mettre à jour le document
+        const updatedGuest = await GuestModel.findByIdAndUpdate(
+            _id,
+            { name : req.body.name, email:req.body.email, company:req.body.company, adresse:req.body.adresse },
+            { new: true } // Pour retourner le document mis à jour
+        );
+                console.log(updatedGuest);
+        if (updatedGuest) {
+            //console.log("non trouve")
+            res.send("Modifications bien sauvegardées")
+        } 
+    } catch (err) {
+        console.error("Erreur lors de la mise à jour du profil d'invité :", err);
+        res.status(HTTP_BAD_REQUEST).send("Erreur lors de la mise à jour du profil d'invité.");
+    }
+}));
 
 
 // Here we define a fonction for the users authentification like  in a real database
@@ -219,6 +265,8 @@ const generateTokenResponse = (user :any )=>{
     return user;
 
 }
+
+
 
 
 

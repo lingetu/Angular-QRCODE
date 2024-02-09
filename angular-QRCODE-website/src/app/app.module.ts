@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 /*MODULE*/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeModule } from 'angularx-qrcode';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 
 /*ROUTING*/
 import { RouterModule } from '@angular/router';
@@ -30,11 +29,13 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 // the following is added by Falilou :
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
-import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
 import { CreationEvenementComponent } from './creation-evenement/creation-evenement.component';
-import { PresentListComponent } from './present-list/present-list.component';
+import { EditeProfileGuestComponent } from './edite-profile-guest/edite-profile-guest.component';
+import { NavbarGuestComponent } from './navbar-guest/navbar-guest.component';
+import { NavbarStudentComponent } from './navbar-student/navbar-student.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PresentListComponent } from './present-list/present-list.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProfileCardStudentComponent,
     NavbarStudentComponent,
     NavbarGuestComponent,
+      CreationEvenementComponent,
+      EditeProfileGuestComponent,
+    
     CreationEvenementComponent,
       PresentListComponent
    ],
@@ -85,6 +89,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         /**S'enregistrer avec son mail ou numéro étudiant */
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
+        { path: 'editeProfileGuest', component: EditeProfileGuestComponent},
+        
+
         {path : 'PresentList', component: PresentListComponent},
         { path: '**', component: NullUrlComponent},
             ]),

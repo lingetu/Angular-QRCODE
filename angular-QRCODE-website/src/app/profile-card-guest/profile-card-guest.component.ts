@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GuestService } from '../services/guest.service';
 import { Guest } from '../shared/models/guest';
-import { IEventCreation, IPresentList } from '../shared/interfaces/IEventCreation';
+import { IEventCreation, IPresentList,IEvent } from '../shared/interfaces/IEventCreation';
 import { faQrcode,faTimes,faList,faDownload } from '@fortawesome/free-solid-svg-icons';
 import { of } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -22,21 +22,48 @@ export class ProfileCardGuestComponent implements OnInit {
   public getScreenHeight: any;
   public getQrCodeWidth: any;
   guest!: Guest;
-  events!: IEventCreation[];
+  events!: IEvent[];
+  eventToDelete!: IEvent;
+
+
   faQrcode = faQrcode;
   faTimes = faTimes;
   faList=faList;
-  filteredEvents: IEventCreation[] = [];
-  presentList: IPresentList[] = [];
-
   faDownload = faDownload;
 
-  // deleteEvent(event: IEventCreation) {
-  //   this.guestService.deleteEvent(event.name,event.date,this.guest.id).subscribe((newGuest) => {
-  //     this.guest = newGuest;
-  //     this.events = this.guest.event;
-  //   });
-  // }
+
+  filteredEvents: IEvent[] = [];
+  presentList: IPresentList[] = [];
+
+
+
+
+  filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
+
+  deleteEvent(event:IEvent){
+    this.closeModal();
+    {
+    this.guestService.deleteEvent(event._id,this.guest).subscribe((newGuest) => {
+    console.log(newGuest);
+    });
+
+    this.guestService.getGuestLive(this.guest.id).subscribe((newGuest) => {
+      console.log(newGuest);
+      this.guest = newGuest;
+      this.events = this.guest.event;
+    });
+
+  }
+
+  }
+  generateQRcode(event:IEvent){ {
+    console.log(event);
+    console.log(event._id);
+    console.log(this.guest.id);
+
+  }
+
+  }
 
   downloadFile(IPresentList:IPresentList[])
   {
@@ -45,9 +72,13 @@ export class ProfileCardGuestComponent implements OnInit {
     console.log(this.toCSV(this.presentList));
   }
 
-  filter : "Tout" | "Passé" | "A venir" | "Aujourdhui"= "Tout";
 
-  constructor(private guestService : GuestService,private modalService:NgbModal){ }
+
+
+
+
+
+  constructor(private guestService : GuestService, private modalService:NgbModal){ }
 
    toCSV(json) {
     json = Object.values(json);
@@ -65,7 +96,8 @@ export class ProfileCardGuestComponent implements OnInit {
 
 
 
-   openModal(template, event: IEventCreation) {
+
+   openModal(template, event: IEvent) {
     this.presentList = event.presentList;
     this.modalService.open(template,{
       windowClass: 'modal-dialog-centered',
@@ -73,11 +105,28 @@ export class ProfileCardGuestComponent implements OnInit {
 
     });
   }
+
+  openModalDelete(template,event:IEvent) {
+    this.modalService.open(template,{
+      windowClass: 'modal-dialog-centered',
+      centered: true, // This centers the modal vertically
+    });
+    this.eventToDelete = event;
+  }
+
+  cancelDelete() {
+    this.eventToDelete = null;
+    this.modalService.dismissAll();
+
+  }
+
   closeModal() {
     this.modalService.dismissAll();
   }
 
   ngOnInit() {
+
+
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
 
@@ -96,11 +145,6 @@ export class ProfileCardGuestComponent implements OnInit {
         this.guest = newGuest;
         this.events = this.guest.event;
       })
-      this.events = this.guest.event;
-
-
-
-
   }
 
 
