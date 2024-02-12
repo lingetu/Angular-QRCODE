@@ -14,7 +14,7 @@ __NB🥇_ Exécutez toutes les commandes dans le répertoire racine du projet (o
 
 - Télécharger / cloner [la source depuis GitHub](https://github.com/lingetu/Angular-QRCODE.git)
 - Installer toutes les modules et dépendances avec la commande : `npm install` 
-- Lignes de commande : `ng serve ` pour lancer le serveur frontend et sur un autre terminal dans le dosssier backend taper la commande :`npm start` une fois le backend et le frontend lancés naviguez au `http://localhost:4200/` l'application se chargera automatiquement.
+- Lignes de commande : `ng serve ` pour lancer le serveur frontend et sur un autre terminal dans le dosssier backend taper la commande `npm start`, une fois le backend et le frontend lancés naviguez au `http://localhost:4200/` l'application se chargera automatiquement.
 
 - **VSCode** doit importer le projet automatiquement lorsque vous ouvrez le répertoire du projet.
 
