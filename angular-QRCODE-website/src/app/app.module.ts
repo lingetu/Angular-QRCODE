@@ -97,6 +97,7 @@ import { IdcardComponent } from './idcard/idcard.component';
         { path: 'scanqrcode', component: ScanqrcodeComponent},
         { path: 'idcard', component: IdcardComponent},
         {path : 'PresentList', component: PresentListComponent},
+        {path : 'scanqrcode', component: ScanqrcodeComponent},
         { path: '**', component: NullUrlComponent},
             ]),
 

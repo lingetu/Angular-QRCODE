@@ -1,5 +1,5 @@
 <section>
-  <div id="load" >
+  <div id="load" *ngIf="done==0">
     <div><h1>G</h1></div>
     <div><h1>N</h1></div>
     <div><h1>I</h1></div>
@@ -8,6 +8,18 @@
     <div><h1>O</h1></div>
     <div><h1>L</h1></div>
   </div>
+
+    <section class="sectioncontainer " *ngIf="done==1">
+        <div id="notfound">
+            <div class="notfound">
+            <div class="notfound-404">
+            <h1><span>S</span><span>U</span><span>C</span><span>C</span><span>E</span><span>S</span></h1>
+            </div>
+
+            </div>
+            </div>
+    </section>
+
 </section>
 
 

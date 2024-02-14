@@ -9,7 +9,8 @@ import {
   GUEST_REGISTER_URL,
   GUEST_GET_GUEST_LIVE,
   GUEST_DELETE_EVENT,
-  GUEST_EDITE_URL
+  GUEST_EDITE_URL,
+  GUEST_ADD_STUDENT_TO_EVENT
 
 } from '../shared/constants/urls';
 
@@ -29,6 +30,30 @@ export class GuestService {
 
   constructor(private http: HttpClient, private toastrService: ToastrService) {
     this.guestObservable = this.UserGuest.asObservable();
+  }
+
+  addStudentToEvent(idEvent: string,idGuest: string,idStudent: string,studentNumber:string): Observable<Guest> {
+    let obj = {
+      eventID: idEvent,
+      guestID: idGuest,
+      studentID: idStudent,
+      studentNumber: studentNumber,
+    };
+    return this.http.post<Guest>(GUEST_ADD_STUDENT_TO_EVENT, obj).pipe(
+      tap({
+        next: (guest) => {
+          this.toastrService.success(
+            `AJouté avec succés !!`,
+          );
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(
+            errorResponse.error,
+            'Ajout échouée !! '
+          );
+        },
+      })
+    );
   }
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )

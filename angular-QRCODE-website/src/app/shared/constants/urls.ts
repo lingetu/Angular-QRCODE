@@ -12,3 +12,4 @@ export const GUEST_EDITE_URL  = BASE_URL + "/api/guests/editeProfileGuest";
 export const GUEST_CREATION_EVENT  = BASE_URL + "/api/guests/creationEvent";
 export const GUEST_GET_GUEST_LIVE = BASE_URL + "/api/guests/getGuestLive";
 export const GUEST_DELETE_EVENT = BASE_URL + "/api/guests/deleteEvent";
+export const GUEST_ADD_STUDENT_TO_EVENT = BASE_URL + "/api/guests/addStudentToEvent";

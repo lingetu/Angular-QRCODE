@@ -21,19 +21,20 @@ ngOnInit() {
 
   this.route.queryParams.subscribe(params => {
     const idEvent = params['idEvent']; // Récupérer le paramètre 'id' de l'URL
-    const idGuest = params['idEvent']; // Récupérer le paramètre 'id' de l'URL
-    const idStudent = params['idEvent']; // Récupérer le paramètre 'id' de l'URL
-    if (idEvent && idGuest && idStudent) {
+    const idGuest = params['idGuest']; // Récupérer le paramètre 'id' de l'URL
+    const idStudent = params['idStudent']; // Récupérer le paramètre 'id' de l'URL
+    const studentNumber = params['studentNumber']; // Récupérer le paramètre 'id' de l'URL
+    if (idEvent && idGuest && idStudent && studentNumber) {
       // Si l'ID est présent dans l'URL, vous pouvez charger les données du guest correspondant
-      this.addStudentToEvent(idEvent,idGuest,idStudent);
+      this.addStudentToEvent(idEvent,idGuest,idStudent,studentNumber);
     }
   });
 
 }
-  addStudentToEvent(idEvent: string,idGuest: string,idStudent: string) {
-    // this.guestService.addStudentToEvent(idEvent,idGuest,idStudent).subscribe((guest: Guest) => {
-    // this.done=1;
-    // });
+  addStudentToEvent(idEvent: string,idGuest: string,idStudent: string,studentNumber:string) {
+    this.guestService.addStudentToEvent(idEvent,idGuest,idStudent,studentNumber).subscribe((guest: Guest) => {
+    this.done=1;
+    });
   }
 
 }

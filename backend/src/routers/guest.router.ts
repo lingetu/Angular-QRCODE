@@ -208,9 +208,40 @@ router.post("/loginGuest", asynchandller(
       
       
 
+ 
+
+
+ router.post("/addStudentToEvent", asynchandller(
+    async (req, res)=>{
+        // console.log("getGuestLive");
+        // console.log(req.body);    
+    
+        var idGuest = req.body.guestID;       
+        var _idGuest = new ObjectId(idGuest);
+
+        var idStudent = req.body.studentID;
+
+        var idEvent = req.body.eventID;
+        var _idEvent = new ObjectId(idEvent);
+
+        var objstudent = {
+            id: idStudent,
+            name: req.body.studentNumber
+        }
 
 
 
+        const result = GuestModel.updateOne(
+            { "_id": _idGuest, "event._id": _idEvent }, // Filtre pour trouver l'objet idGuest avec l'événement correspondant
+            { "$push": { "event.$.presentList": objstudent } }
+        ).then((result:any) => {
+            // console.log(result);
+            res.send(generateTokenResponse(result));
+        }).catch((err:any) => {
+            res.status(HTTP_BAD_REQUEST).send("Erreur");
+            console.log(err);
+        });
+    }));
 
 
 
