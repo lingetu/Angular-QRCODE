@@ -36,6 +36,8 @@ import { NavbarStudentComponent } from './navbar-student/navbar-student.componen
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PresentListComponent } from './present-list/present-list.component';
+import { ScanqrcodeComponent } from './scanqrcode/scanqrcode.component';
+import { IdcardComponent } from './idcard/idcard.component';
 
 @NgModule({
   declarations: [
@@ -53,9 +55,11 @@ import { PresentListComponent } from './present-list/present-list.component';
     NavbarGuestComponent,
       CreationEvenementComponent,
       EditeProfileGuestComponent,
-    
+
     CreationEvenementComponent,
-      PresentListComponent
+      PresentListComponent,
+      ScanqrcodeComponent,
+      IdcardComponent
    ],
 
 
@@ -67,7 +71,7 @@ import { PresentListComponent } from './present-list/present-list.component';
     QRCodeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    
+
 
 
 
@@ -90,8 +94,8 @@ import { PresentListComponent } from './present-list/present-list.component';
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: 'formEtudiant', component: FormQrcodeEtudiantComponent},
         { path: 'editeProfileGuest', component: EditeProfileGuestComponent},
-        
-
+        { path: 'scanqrcode', component: ScanqrcodeComponent},
+        { path: 'idcard', component: IdcardComponent},
         {path : 'PresentList', component: PresentListComponent},
         { path: '**', component: NullUrlComponent},
             ]),

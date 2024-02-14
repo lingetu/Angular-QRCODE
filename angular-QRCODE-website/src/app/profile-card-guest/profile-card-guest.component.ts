@@ -24,6 +24,7 @@ export class ProfileCardGuestComponent implements OnInit {
   guest!: Guest;
   events!: IEvent[];
   eventToDelete!: IEvent;
+  guestidSTring!: string;
 
 
   faQrcode = faQrcode;
@@ -63,6 +64,8 @@ export class ProfileCardGuestComponent implements OnInit {
     this.guestService.getGuestLive(this.guest.id).subscribe((newGuest)=>{
       this.guest = newGuest;
       this.events = this.guest.event;
+      // this.guestidSTring = this.guest.id.toString();
+      // console.log(this.guestidSTring);
     })
 }
 
