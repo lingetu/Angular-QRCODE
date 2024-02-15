@@ -25,6 +25,8 @@ export class ProfileCardGuestComponent implements OnInit {
   events!: IEvent[];
   eventToDelete!: IEvent;
   guestidSTring!: string;
+  idEventQR!: string;
+  idGuestQR!: string;
 
 
   faQrcode = faQrcode;
@@ -132,7 +134,15 @@ link.click();
 
 
 
+  openModalQR(template, event: IEvent, guest: Guest) {
 
+    this.modalService.open(template,{
+      windowClass: 'modal-dialog-centered',
+      centered: true, // This centers the modal vertically
+    });
+    this.idEventQR = event._id;
+    this.idGuestQR = guest.id.toString();
+  }
 
 
    openModal(template, event: IEvent) {

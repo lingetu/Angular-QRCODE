@@ -68,8 +68,8 @@
 
                       </div>
                       <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter Un Nouveau Evenement</span></a>
-                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>
+                        <a routerLink="/creationEvenement" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter Un Nouveau Evenement</span></a>
+
                       </div>
 
                     </div>
@@ -103,7 +103,7 @@
                         <td>{{evnt.time}}</td>
                         <td>{{evnt.hour}}</td>
                         <td>
-                          <a (click)="generateQRcode(evnt)" class="edit" data-toggle="modal"> <fa-icon [icon]=faQrcode></fa-icon></a>
+                          <a (click)="openModalQR(template3,evnt,guest)" class="edit" data-toggle="modal"> <fa-icon [icon]=faQrcode></fa-icon></a>
                           <a  class="delete" (click)="openModalDelete(template2,evnt)" data-toggle="modal"><fa-icon [icon]=faTimes></fa-icon></a>
                           <a (click)="openModal(template,evnt)"  class="Present" data-toggle="modal"><fa-icon [icon]=faList></fa-icon></a>
                         </td>
@@ -214,6 +214,17 @@
     <button (click)="cancelDelete()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
     <button (click)="deleteEvent(eventToDelete)" type="button" class="btn btn-danger">Delete</button>
 </div>
+</ng-template>
+
+<ng-template #template3>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Liste des présent pour l'événement </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <app-qr-code-component [guestId]="idGuestQR" [eventId]="idEventQR"></app-qr-code-component>
+
 </ng-template>
 
 

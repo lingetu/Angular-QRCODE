@@ -1,9 +1,17 @@
 
 
-    <div>
+
+    <div *ngIf="idcard==1">
+      <div>
         <qrcode  [qrdata]="QRcodeLien" [width]="getQrCodeWidth" [errorCorrectionLevel]="'M'"></qrcode>
     </div>
-    <div>
-    <p>QrCodeData: {{QRcodeLien}}</p>
+    <p> QrCodeData: {{QRcodeLien}}</p>
 
     </div>
+    <div *ngIf="idcard==0">
+      <div>
+        <qrcode  [qrdata]="QrCodeDataEvent" [width]="getQrCodeWidth" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+      <p> QrCodeData: {{QrCodeDataEvent}}</p>
+
+      </div>
